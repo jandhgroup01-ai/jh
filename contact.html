@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>고객센터 — J&H그룹</title>
+<title>문의하기 — J&H그룹</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <style>
 @font-face{font-family:'SUIT';src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');font-weight:400;font-display:swap;}
@@ -32,7 +32,7 @@ section{position:relative;}
 .fade-up.in{opacity:1;transform:none;}
 .stagger>*{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
 .stagger.in>*{opacity:1;transform:none;}
-.stagger.in>*:nth-child(2){transition-delay:.07s;}.stagger.in>*:nth-child(3){transition-delay:.14s;}.stagger.in>*:nth-child(4){transition-delay:.21s;}.stagger.in>*:nth-child(5){transition-delay:.28s;}.stagger.in>*:nth-child(6){transition-delay:.35s;}
+.stagger.in>*:nth-child(2){transition-delay:.1s;}.stagger.in>*:nth-child(3){transition-delay:.2s;}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto;}.reveal-line{-webkit-text-fill-color:currentColor;color:inherit;background:none;}.fade-up,.stagger>*{opacity:1;transform:none;}}
 /* 헤더 */
 .site-header{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 0;transition:background .4s ease,padding .4s ease,border-color .4s ease;border-bottom:1px solid transparent;}
@@ -65,37 +65,41 @@ section{position:relative;}
 .subhero__sub{margin-top:18px;font-size:clamp(15px,1.4vw,18px);color:rgba(255,255,255,.74);max-width:50ch;}
 .crumb{font-family:'Pretendard';font-size:12px;letter-spacing:.12em;color:rgba(255,255,255,.5);margin-bottom:20px;}
 .crumb a:hover{color:var(--gold);}.crumb .sep{margin:0 8px;color:rgba(255,255,255,.3);}
-/* S2 공지 리스트 */
-.notice-list{border-top:1px solid var(--line-light);}
-.notice-item{display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:clamp(20px,2.6vw,30px) 4px;border-bottom:1px solid var(--line-light);transition:background .25s;}
-.notice-item:hover{background:rgba(0,0,0,.02);}
-.notice-item .nt-title{font-size:clamp(15px,1.3vw,18px);font-weight:500;color:var(--ink);}
-.notice-item .nt-title .badge{display:inline-block;font-family:'Pretendard';font-size:11px;font-weight:700;letter-spacing:.05em;color:var(--gold-soft);border:1px solid rgba(202,161,6,.5);border-radius:999px;padding:2px 10px;margin-right:12px;}
-.notice-item .nt-date{font-family:'Pretendard';font-size:13px;color:#999;white-space:nowrap;}
-/* S3 FAQ 아코디언 */
-.faq{max-width:880px;margin:0;}
-.faq-item{border-bottom:1px solid var(--line-dark);}
-.faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:20px;text-align:left;background:none;border:0;cursor:pointer;padding:clamp(22px,2.8vw,30px) 4px;color:#fff;font-family:'Pretendard';font-weight:600;font-size:clamp(16px,1.4vw,19px);}
-.faq-q .ic{flex:none;width:30px;height:30px;border-radius:50%;border:1px solid rgba(234,179,8,.5);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:18px;line-height:1;transition:transform .35s,background .3s;}
-.faq-item.open .faq-q .ic{transform:rotate(45deg);background:rgba(234,179,8,.12);}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.16,1,.3,1);}
-.faq-a__inner{padding:0 4px clamp(22px,2.8vw,28px);font-size:15px;line-height:1.85;color:rgba(255,255,255,.66);max-width:64ch;}
-/* S4 연락처/운영시간 */
-.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
-.contact-card{padding:clamp(28px,3vw,38px);border-radius:16px;background:rgba(255,255,255,.03);border:1px solid var(--line-dark);transition:transform .4s,border-color .4s,background .4s;}
-.contact-card:hover{transform:translateY(-5px);border-color:rgba(234,179,8,.5);background:rgba(234,179,8,.05);}
-.contact-card .cc-ic{width:48px;height:48px;border-radius:12px;border:1px solid rgba(234,179,8,.4);background:rgba(234,179,8,.07);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:20px;}
-.contact-card .cc-k{font-family:'Pretendard';font-size:12px;letter-spacing:.12em;color:var(--gold);font-weight:600;}
-.contact-card .cc-v{font-size:clamp(16px,1.5vw,19px);font-weight:600;color:#fff;margin-top:8px;line-height:1.5;}
-.contact-card .cc-note{font-size:13px;color:rgba(255,255,255,.5);margin-top:8px;}
-/* CTA */
-.cta{position:relative;text-align:center;overflow:hidden;background:radial-gradient(120% 120% at 50% 0%,#1f1f1f 0%,#0d0d0d 70%);}
-.cta::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 50% 50%,rgba(234,179,8,.1),transparent 70%);}
-.cta__inner{position:relative;z-index:2;}
-.cta__title{font-family:'Pretendard';font-weight:800;font-size:clamp(30px,4.5vw,56px);line-height:1.25;margin:22px 0 18px;}
-.cta__sub{font-size:clamp(15px,1.3vw,18px);color:rgba(255,255,255,.7);max-width:48ch;margin:0 auto 40px;}
-.btn-gold-lg{display:inline-flex;align-items:center;gap:12px;font-family:'Pretendard';font-weight:700;font-size:17px;padding:18px 40px;border-radius:999px;background:var(--gold);color:#1a1a1a;transition:transform .3s,box-shadow .3s;}
-.btn-gold-lg:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(234,179,8,.4);}
+.placeholder{position:relative;border-radius:16px;overflow:hidden;background:linear-gradient(135deg,#1c1c1c,#262626);border:1px solid rgba(234,179,8,.4);display:flex;align-items:center;justify-content:center;color:rgba(234,179,8,.85);font-family:'Pretendard';font-size:13px;letter-spacing:.08em;text-align:center;min-height:200px;}
+.placeholder span{padding:14px 18px;line-height:1.7;}
+.placeholder::after{content:"";position:absolute;inset:10px;border:1px dashed rgba(234,179,8,.28);border-radius:10px;pointer-events:none;}
+.sec-paper .placeholder{background:linear-gradient(135deg,#e4e4e4,#f0f0f0);border-color:rgba(202,161,6,.5);color:var(--gold-soft);}
+.sec-paper .placeholder::after{border-color:rgba(202,161,6,.4);}
+/* C2 문의 폼 */
+.form-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(40px,6vw,80px);align-items:start;}
+.form-intro .t-sec{margin:20px 0 18px;color:var(--ink);}
+.form-intro p{font-size:clamp(15px,1.1vw,17px);line-height:1.9;color:#555;max-width:34ch;}
+.form-intro .quick{margin-top:28px;}
+.form-intro .quick li{font-size:15px;color:#444;margin-bottom:10px;}
+.form-intro .quick .k{font-family:'Pretendard';font-weight:700;font-size:12px;letter-spacing:.06em;color:var(--gold-soft);margin-right:10px;}
+.cform{display:grid;gap:18px;}
+.frow{display:grid;gap:8px;}
+.frow.two{grid-template-columns:1fr 1fr;gap:18px;}
+.frow label{font-family:'Pretendard';font-size:13px;font-weight:600;color:#333;letter-spacing:.02em;}
+.frow label .req{color:var(--gold-soft);margin-left:4px;}
+.cform input,.cform select,.cform textarea{width:100%;font-family:'SUIT','Pretendard',sans-serif;font-size:15px;color:var(--ink);background:#fff;border:1px solid rgba(0,0,0,.16);border-radius:10px;padding:14px 16px;transition:border-color .25s,box-shadow .25s;}
+.cform textarea{min-height:150px;resize:vertical;line-height:1.7;}
+.cform input:focus,.cform select:focus,.cform textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(234,179,8,.18);}
+.agree{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:#555;line-height:1.6;}
+.agree input{width:auto;margin-top:3px;accent-color:var(--gold);}
+.agree a{color:var(--gold-soft);text-decoration:underline;}
+.btn-submit{justify-self:start;display:inline-flex;align-items:center;gap:10px;font-family:'Pretendard';font-weight:700;font-size:16px;padding:16px 36px;border-radius:999px;border:0;background:var(--ink);color:#fff;cursor:pointer;transition:transform .3s,box-shadow .3s,background .3s;}
+.btn-submit:hover{transform:translateY(-2px);background:#000;box-shadow:0 12px 30px rgba(0,0,0,.25);}
+.form-note{font-size:12.5px;color:#999;margin-top:4px;}
+/* C3 연락처 (다크) */
+.cinfo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.cinfo-card{padding:clamp(28px,3vw,38px);border-radius:16px;background:rgba(255,255,255,.03);border:1px solid var(--line-dark);transition:transform .4s,border-color .4s,background .4s;}
+.cinfo-card:hover{transform:translateY(-5px);border-color:rgba(234,179,8,.5);background:rgba(234,179,8,.05);}
+.cinfo-card .ci-ic{width:48px;height:48px;border-radius:12px;border:1px solid rgba(234,179,8,.4);background:rgba(234,179,8,.07);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:20px;}
+.cinfo-card .ci-k{font-family:'Pretendard';font-size:12px;letter-spacing:.12em;color:var(--gold);font-weight:600;}
+.cinfo-card .ci-v{font-size:clamp(15px,1.3vw,17px);font-weight:600;color:#fff;margin-top:8px;line-height:1.6;}
+/* C4 지도 */
+.map-slot{aspect-ratio:21/9;min-height:300px;}
 /* 푸터 */
 .footer{background:var(--black);color:rgba(255,255,255,.7);padding:clamp(60px,8vh,90px) 0 40px;border-top:1px solid var(--line-dark);}
 .footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px;padding-bottom:48px;border-bottom:1px solid var(--line-dark);}
@@ -121,124 +125,97 @@ section{position:relative;}
 /* 반응형 */
 @media (max-width:900px){
   .gnb{display:none;}.header-inner .btn-cta{display:none;}.hamburger{display:flex;}
-  .contact-grid{grid-template-columns:1fr;}
+  .form-grid{grid-template-columns:1fr;gap:40px;}
+  .cinfo-grid{grid-template-columns:1fr;}
   .footer-top{grid-template-columns:1fr 1fr;}
 }
-@media (max-width:560px){
-  .notice-item{flex-direction:column;gap:6px;}
-  .footer-top{grid-template-columns:1fr;}
-}
+@media (max-width:560px){.frow.two{grid-template-columns:1fr;}.footer-top{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
 
 <header class="site-header" id="header">
   <div class="wrap header-inner">
-    <a href="02_HOME시안.html" class="logo" aria-label="J&H그룹 홈"><img class="logo__img" src="logo.png" alt="J&H GROUP"></a>
+    <a href="index.html" class="logo" aria-label="J&H그룹 홈"><img class="logo__img" src="logo.png" alt="J&H GROUP"></a>
     <nav class="gnb" aria-label="주요 메뉴">
-      <a href="02_HOME시안.html">HOME</a><a href="03_about.html">회사소개</a><a href="04_business.html">사업소개</a><a href="05_insights.html">투자정보</a><a href="06_support.html" class="active">고객센터</a><a href="07_contact.html">문의하기</a>
+      <a href="index.html">HOME</a><a href="about.html">회사소개</a><a href="business.html">사업소개</a><a href="insights.html">투자정보</a><a href="support.html">고객센터</a><a href="contact.html" class="active">문의하기</a>
     </nav>
-    <a href="07_contact.html" class="btn-cta">문의하기</a>
+    <a href="contact.html" class="btn-cta">문의하기</a>
     <button class="hamburger" id="hamburger" aria-label="메뉴 열기" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
 <div class="mobile-menu" id="mobileMenu">
-  <a href="02_HOME시안.html">HOME</a><a href="03_about.html">회사소개</a><a href="04_business.html">사업소개</a><a href="05_insights.html">투자정보</a><a href="06_support.html">고객센터</a><a href="07_contact.html">문의하기</a>
+  <a href="index.html">HOME</a><a href="about.html">회사소개</a><a href="business.html">사업소개</a><a href="insights.html">투자정보</a><a href="support.html">고객센터</a><a href="contact.html">문의하기</a>
 </div>
 
-<!-- ══ S1 히어로 ══ -->
+<!-- ══ C1 히어로 ══ -->
 <section class="subhero">
-  <div class="subhero__bg">[ SLOT-IMG-SUPPORT-HERO · 1920×720 ]</div>
+  <div class="subhero__bg">[ SLOT-IMG-CONTACT-HERO · 1920×720 ]</div>
   <div class="subhero__dim"></div>
   <div class="subhero__content wrap">
-    <nav class="crumb"><a href="02_HOME시안.html">HOME</a><span class="sep">/</span>고객센터</nav>
-    <span class="label">SUPPORT</span>
-    <h1 class="subhero__title reveal-data"><span class="reveal-line">고객센터</span></h1>
-    <p class="subhero__sub fade-up">공지사항과 자주 묻는 질문을 확인하시고, 추가 문의는 언제든 연락 주세요.</p>
+    <nav class="crumb"><a href="index.html">HOME</a><span class="sep">/</span>문의하기</nav>
+    <span class="label">CONTACT</span>
+    <h1 class="subhero__title reveal-data"><span class="reveal-line">문의하기</span></h1>
+    <p class="subhero__sub fade-up">전문 시장 분석과 투자 교육에 대해 궁금한 점이 있다면 언제든 남겨 주세요.</p>
   </div>
 </section>
 
-<!-- ══ S2 공지사항 (화이트) — 제목+날짜 슬롯, 내용 미정 ══ -->
+<!-- ══ C2 문의 폼 (화이트) — 백엔드 미정 → mailto 데모 ══ -->
 <section class="sec-paper sec-pad">
-  <div class="wrap">
-    <span class="label" style="margin-bottom:18px;display:inline-flex;">NOTICE</span>
-    <h2 class="t-sec fade-up" style="color:var(--ink);margin-bottom:clamp(32px,5vw,48px);">공지사항</h2>
-    <div class="notice-list stagger">
-      <a class="notice-item" href="#"><span class="nt-title"><span class="badge">공지</span>홈페이지 공지사항 영역입니다. <span style="color:#aaa;">(제목 미정 — 준비중)</span></span><span class="nt-date">2026.06.22</span></a>
-      <a class="notice-item" href="#"><span class="nt-title">시장 분석 정보 업데이트 안내 <span style="color:#aaa;">(내용 미정 — 준비중)</span></span><span class="nt-date">2026.06.—</span></a>
-      <a class="notice-item" href="#"><span class="nt-title">투자 교육 일정 안내 <span style="color:#aaa;">(내용 미정 — 준비중)</span></span><span class="nt-date">2026.05.—</span></a>
-      <a class="notice-item" href="#"><span class="nt-title">서비스 이용 관련 안내 <span style="color:#aaa;">(내용 미정 — 준비중)</span></span><span class="nt-date">2026.05.—</span></a>
+  <div class="wrap form-grid">
+    <div class="form-intro fade-up">
+      <span class="label">INQUIRY</span>
+      <h2 class="t-sec">무엇이든<br>문의해 주세요.</h2>
+      <p>아래 항목을 작성해 주시면 빠르게 확인 후 답변드리겠습니다.</p>
+      <ul class="quick">
+        <li><span class="k">TEL</span>010-8340-8770</li>
+        <li><span class="k">MAIL</span>jandhgroup01@gmail.com</li>
+      </ul>
     </div>
-    <p class="t-cap" style="color:#aaa;margin-top:24px;">※ 공지 제목·날짜·본문은 슬롯입니다. 실제 공지 등록 후 교체 예정.</p>
+
+    <!-- 폼: 백엔드 미정 → mailto 조합 데모(전송 시 메일 클라이언트로 본문 구성). DB 연동 미구현 -->
+    <form class="cform" id="cform" novalidate>
+      <div class="frow two">
+        <div class="frow"><label for="f-name">이름 <span class="req">*</span></label><input id="f-name" name="name" type="text" placeholder="이름을 입력해 주세요" required></div>
+        <div class="frow"><label for="f-phone">연락처 <span class="req">*</span></label><input id="f-phone" name="phone" type="tel" placeholder="010-0000-0000" required></div>
+      </div>
+      <div class="frow"><label for="f-email">이메일 <span class="req">*</span></label><input id="f-email" name="email" type="email" placeholder="example@email.com" required></div>
+      <div class="frow"><label for="f-type">문의 유형 <span class="req">*</span></label>
+        <select id="f-type" name="type" required>
+          <option value="" disabled selected>문의 유형을 선택해 주세요</option>
+          <option>시장 분석 정보</option>
+          <option>투자 교육 · 컨설팅</option>
+          <option>제휴 · 협력</option>
+          <option>기타 문의</option>
+        </select>
+      </div>
+      <div class="frow"><label for="f-msg">문의 내용 <span class="req">*</span></label><textarea id="f-msg" name="message" placeholder="문의하실 내용을 입력해 주세요" required></textarea></div>
+      <label class="agree"><input type="checkbox" id="f-agree" name="agree" required><span>개인정보 수집 및 이용에 동의합니다. (수집 항목: 이름·연락처·이메일 / 목적: 문의 응대 / 보유기간: 응대 완료 후 파기) <a href="#" onclick="return false;">자세히</a></span></label>
+      <button type="submit" class="btn-submit">문의 보내기 <span>→</span></button>
+      <p class="form-note" id="formNote">※ 현재 폼 백엔드(DB 저장)는 미구현 — 전송 시 메일 클라이언트로 내용이 정리되어 열립니다(mailto 데모). 실제 저장/발송 연동은 미정.</p>
+    </form>
   </div>
 </section>
 
-<!-- ══ S3 FAQ 아코디언 (블랙) — 질문 슬롯, 실제 펼침 동작 ══ -->
-<section class="sec-black sec-pad">
-  <div class="wrap">
-    <span class="label fade-up" style="margin-bottom:18px;display:inline-flex;">FAQ</span>
-    <h2 class="t-sec fade-up" style="margin-bottom:clamp(36px,5vw,56px);">자주 묻는 질문</h2>
-    <div class="faq stagger" id="faq">
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false"><span>J&H그룹은 어떤 서비스를 제공하나요?</span><span class="ic" aria-hidden="true">+</span></button>
-        <div class="faq-a"><div class="faq-a__inner">주식 및 가상자산 시장 분석을 기반으로 전문적인 시장 정보와 투자 교육 서비스를 제공합니다. 국내·해외 주식과 가상자산을 통합적으로 분석합니다.</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false"><span>투자 수익을 보장하나요?</span><span class="ic" aria-hidden="true">+</span></button>
-        <div class="faq-a"><div class="faq-a__inner">아니요. 제공되는 모든 정보는 투자 참고용이며 수익을 보장하지 않습니다. 투자에는 원금 손실 위험이 있으며, 모든 투자 판단과 그 결과의 책임은 투자자 본인에게 있습니다.</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false"><span>초보 투자자도 이용할 수 있나요?</span><span class="ic" aria-hidden="true">+</span></button>
-        <div class="faq-a"><div class="faq-a__inner">네. 초보 투자자부터 전문 투자자까지 수준에 맞춘 맞춤형 정보를 제공하며, 체계적인 리스크 관리 교육도 함께 진행합니다.</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false"><span>투자 교육·컨설팅은 어떻게 신청하나요? <span style="color:rgba(255,255,255,.4);font-weight:400;">(상세 미정 — 준비중)</span></span><span class="ic" aria-hidden="true">+</span></button>
-        <div class="faq-a"><div class="faq-a__inner">교육·컨설팅 신청 절차는 준비중입니다. 자세한 안내가 필요하시면 문의하기 페이지 또는 대표 연락처로 문의해 주세요.</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false"><span>문의는 어떻게 하나요?</span><span class="ic" aria-hidden="true">+</span></button>
-        <div class="faq-a"><div class="faq-a__inner">상단 메뉴의 '문의하기' 페이지에서 문의 폼을 작성하시거나, 대표 연락처(010-8340-8770) 또는 이메일(jandhgroup01@gmail.com)로 연락 주시면 됩니다.</div></div>
-      </div>
-    </div>
-    <p class="t-cap" style="color:rgba(255,255,255,.35);margin-top:24px;">※ FAQ 문항 = 브리프 사실 기반 + 일부 "준비중" 슬롯.</p>
-  </div>
-</section>
-
-<!-- ══ S4 연락처/운영시간 (다크) — 전화·이메일 확정값, 운영시간 미정 ══ -->
+<!-- ══ C3 연락처 정보 (다크) — 확정값 ══ -->
 <section class="sec-dark sec-pad">
   <div class="wrap">
     <span class="label fade-up" style="margin-bottom:18px;display:inline-flex;">CONTACT INFO</span>
-    <h2 class="t-sec fade-up" style="margin-bottom:clamp(36px,5vw,56px);">연락처 · 운영시간</h2>
-    <div class="contact-grid stagger">
-      <div class="contact-card">
-        <div class="cc-ic" aria-hidden="true">☎</div>
-        <div class="cc-k">TEL</div>
-        <div class="cc-v">010-8340-8770</div>
-        <div class="cc-note">대표 연락처</div>
-      </div>
-      <div class="contact-card">
-        <div class="cc-ic" aria-hidden="true">✉</div>
-        <div class="cc-k">EMAIL</div>
-        <div class="cc-v">jandhgroup01@gmail.com</div>
-        <div class="cc-note">이메일 문의</div>
-      </div>
-      <div class="contact-card">
-        <div class="cc-ic" aria-hidden="true">⏱</div>
-        <div class="cc-k">HOURS</div>
-        <div class="cc-v" style="color:rgba(255,255,255,.6);">운영시간 미정</div>
-        <div class="cc-note">※ 운영시간 준비중</div>
-      </div>
+    <h2 class="t-sec fade-up" style="margin-bottom:clamp(36px,5vw,56px);">연락처 정보</h2>
+    <div class="cinfo-grid stagger">
+      <div class="cinfo-card"><div class="ci-ic" aria-hidden="true">☎</div><div class="ci-k">TEL</div><div class="ci-v">010-8340-8770</div></div>
+      <div class="cinfo-card"><div class="ci-ic" aria-hidden="true">✉</div><div class="ci-k">EMAIL</div><div class="ci-v">jandhgroup01@gmail.com</div></div>
+      <div class="cinfo-card"><div class="ci-ic" aria-hidden="true">⌖</div><div class="ci-k">ADDRESS</div><div class="ci-v">서울특별시 성동구 성수일로8길 5,<br>서울숲 SKV1타워 제A동 611호</div></div>
     </div>
   </div>
 </section>
 
-<!-- ══ CTA ══ -->
-<section class="cta sec-pad">
-  <div class="wrap cta__inner">
-    <span class="label" style="justify-content:center;">CONTACT</span>
-    <h2 class="cta__title fade-up">원하는 답을<br>찾지 못하셨나요?</h2>
-    <p class="cta__sub fade-up">FAQ에서 해결되지 않은 궁금증은 문의하기로 남겨 주세요.</p>
-    <a href="07_contact.html" class="btn-gold-lg fade-up">문의 남기기 <span>→</span></a>
+<!-- ══ C4 오시는 길 (화이트) — 지도 슬롯 ══ -->
+<section class="sec-paper sec-pad">
+  <div class="wrap">
+    <span class="label" style="margin-bottom:18px;display:inline-flex;">LOCATION</span>
+    <h2 class="t-sec fade-up" style="color:var(--ink);margin-bottom:clamp(32px,5vw,48px);">오시는 길</h2>
+    <div class="map-slot placeholder fade-up"><span>[ SLOT-MAP-CONTACT · 16:9 ]<br>지도 임베드 자리<br>서울특별시 성동구 성수일로8길 5, 서울숲 SKV1타워 제A동 611호</span></div>
   </div>
 </section>
 
@@ -246,13 +223,13 @@ section{position:relative;}
   <div class="wrap">
     <div class="footer-top">
       <div class="footer-brand">
-        <a href="02_HOME시안.html" class="logo"><img class="logo__img" src="logo.png" alt="J&H GROUP"></a>
+        <a href="index.html" class="logo"><img class="logo__img" src="logo.png" alt="J&H GROUP"></a>
         <p>주식과 가상자산 시장 분석을 기반으로 전문적인 시장 정보와 투자 교육 서비스를 제공합니다.</p>
       </div>
       <div class="footer-col"><h5>사업영역</h5>
-        <a href="04_business.html">국내 주식 분석</a><a href="04_business.html">해외 주식 분석</a><a href="04_business.html">가상자산 분석</a><a href="04_business.html">투자 교육·컨설팅</a><a href="04_business.html">투자 정보 제공</a></div>
+        <a href="business.html">국내 주식 분석</a><a href="business.html">해외 주식 분석</a><a href="business.html">가상자산 분석</a><a href="business.html">투자 교육·컨설팅</a><a href="business.html">투자 정보 제공</a></div>
       <div class="footer-col"><h5>바로가기</h5>
-        <a href="02_HOME시안.html">HOME</a><a href="03_about.html">회사소개</a><a href="04_business.html">사업소개</a><a href="05_insights.html">투자정보</a><a href="06_support.html">고객센터</a><a href="07_contact.html">문의하기</a></div>
+        <a href="index.html">HOME</a><a href="about.html">회사소개</a><a href="business.html">사업소개</a><a href="insights.html">투자정보</a><a href="support.html">고객센터</a><a href="contact.html">문의하기</a></div>
       <div class="footer-col footer-contact"><h5>연락처</h5>
         <ul><li><span class="k">TEL</span>010-8340-8770</li><li><span class="k">MAIL</span>jandhgroup01@gmail.com</li><li style="line-height:1.7;"><span class="k">ADD</span>서울특별시 성동구 성수일로8길 5,<br>서울숲 SKV1타워 제A동 611호</li></ul></div>
     </div>
@@ -262,7 +239,7 @@ section{position:relative;}
 </footer>
 
 <div class="floating">
-  <a href="07_contact.html" class="float-inquiry" aria-label="문의하기"><span class="ico" aria-hidden="true">✉</span><span>문의하기</span></a>
+  <a href="#cform" class="float-inquiry" aria-label="문의하기"><span class="ico" aria-hidden="true">✉</span><span>문의하기</span></a>
   <button class="float-top" id="floatTop" aria-label="맨 위로" type="button">↑</button>
 </div>
 
@@ -282,40 +259,41 @@ section{position:relative;}
     var hr=document.querySelector('.subhero .reveal-data');if(hr){setTimeout(function(){hr.classList.add('revealed');},300);}
     document.querySelectorAll('.subhero .fade-up').forEach(function(el,i){setTimeout(function(){el.classList.add('in');},250+i*120);});
   });
-  // ── S3 FAQ 아코디언 (실제 펼침 동작) ──
-  var faq=document.getElementById('faq');
-  faq.querySelectorAll('.faq-q').forEach(function(q){
-    q.addEventListener('click',function(){
-      var item=q.closest('.faq-item'),ans=item.querySelector('.faq-a'),isOpen=item.classList.contains('open');
-      // 단일 오픈(아코디언) — 다른 항목 닫기
-      faq.querySelectorAll('.faq-item.open').forEach(function(o){if(o!==item){o.classList.remove('open');o.querySelector('.faq-q').setAttribute('aria-expanded','false');o.querySelector('.faq-a').style.maxHeight=null;}});
-      if(isOpen){item.classList.remove('open');q.setAttribute('aria-expanded','false');ans.style.maxHeight=null;}
-      else{item.classList.add('open');q.setAttribute('aria-expanded','true');ans.style.maxHeight=ans.scrollHeight+'px';}
-    });
+  // ── C2 문의 폼 (백엔드 미정 → mailto 데모) ──
+  var form=document.getElementById('cform'),note=document.getElementById('formNote');
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var name=form.name.value.trim(),phone=form.phone.value.trim(),email=form.email.value.trim(),type=form.type.value,msg=form.message.value.trim(),agree=form.agree.checked;
+    if(!name||!phone||!email||!type||!msg){note.textContent='※ 필수 항목(이름·연락처·이메일·문의유형·내용)을 모두 입력해 주세요.';note.style.color='#c0392b';return;}
+    if(!agree){note.textContent='※ 개인정보 수집·이용에 동의해 주셔야 문의를 보낼 수 있습니다.';note.style.color='#c0392b';return;}
+    var subject='[J&H그룹 문의] '+type+' - '+name;
+    var body='이름: '+name+'\n연락처: '+phone+'\n이메일: '+email+'\n문의유형: '+type+'\n\n내용:\n'+msg;
+    // 백엔드 DB 미구현 → mailto 데모(메일 클라이언트로 내용 정리)
+    window.location.href='mailto:jandhgroup01@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+    note.textContent='※ 메일 작성 창이 열립니다. (DB 저장/자동 발송 연동은 미정 — 현재 mailto 데모)';note.style.color='#666';
   });
 })();
 </script>
 
 <!--
 ══════════════════════════════════════════════════════════════
-[근거]  J&H그룹 고객센터(06_support.html) — 시엘(퍼블리싱)
+[근거]  J&H그룹 문의하기(contact.html) — 시엘(퍼블리싱)
 ══════════════════════════════════════════════════════════════
 ■ 확정
-- 헤더·푸터·Floating·토큰·reveal·폰트 — 02_HOME시안.html 100% 상속
-- S4 TEL 010-8340-8770 / EMAIL jandhgroup01@gmail.com — _brief.md L83~84 확정값
-- 연락처/주소/사업자번호 — _brief.md L83~86
-- 페이지 구성 S1~S4 — 01_기획.md §3 ▣고객센터
-- FAQ 아코디언 = MONENS FAQ 방식 — 01_기획.md S3
-- 서브 히어로 = 영상 아님(SLOT-IMG-SUPPORT-HERO 1920×720 + 딤 + 타이틀 reveal)
+- 헤더·푸터·Floating·토큰·reveal·폰트 — index.html 100% 상속
+- C3 연락처 TEL/EMAIL/주소 — _brief.md L83~85 확정값 실삽입
+- 사업자번호 881-87-03538 — _brief.md L86
+- C2 폼 항목(이름/연락처/이메일/문의유형/내용/개인정보동의+제출) — 01_기획.md C2
+- 페이지 구성 C1~C4 — 01_기획.md §3 ▣문의하기
+- 서브 히어로 = 영상 아님(SLOT-IMG-CONTACT-HERO 1920×720 + 딤 + 타이틀 reveal)
 ■ 미정 (슬롯/플레이스홀더)
-- S2 공지 제목·날짜·본문 → "(제목/내용 미정 — 준비중)" 명시 + 캡션
-- S3 FAQ 일부(교육 신청 절차) → "(상세 미정 — 준비중)"
-- S4 운영시간 → "운영시간 미정 / 준비중" 명시(전화·이메일만 확정)
-- S1 히어로 SLOT-IMG-SUPPORT-HERO
+- 폼 백엔드(mailto vs DB) → mailto 데모로 비동작 처리 + "DB 저장 미구현/연동 미정" 명시 — _brief.md L90
+- C4 지도 SLOT-MAP-CONTACT / C1 히어로 SLOT-IMG-CONTACT-HERO
 ■ 제안 (시엘 판단)
-- S3 FAQ 5문항 = 브리프 사실(서비스/수익 미보장/초보 가능/문의) 기반 작문 + 단일 오픈 아코디언 — 제안
-- S3 "수익 보장하나요? → 아니요" 문항 = 규제 대응 강화(제안)
-■ 기술 규칙 — scroll {passive:true}, will-change 미사용, 히어로 clamp 최대 64px, FAQ maxHeight JS 펼침(transition), 모바일 공지 세로 스택(수평스크롤 없음), prefers-reduced-motion 대응, 단일 HTML, 폰트 CDN만. OP_09 금지패턴 미사용
+- 폼 = mailto 조합 데모(클라이언트 검증 + 메일 클라이언트 본문 자동 구성) — 백엔드 확정 전 동작 가능한 최소안. 제안
+- 문의유형 옵션(시장분석/교육컨설팅/제휴/기타) = 사업영역(브리프) 기반 — 제안
+- 개인정보 수집 동의 항목(필수 체크) = 규제 대응 — 제안
+■ 기술 규칙 — scroll {passive:true}, will-change 미사용, 히어로 clamp 최대 64px, 모바일 폼 1열(수평스크롤 없음), prefers-reduced-motion 대응, 단일 HTML, 폰트 CDN만. OP_09 금지패턴 미사용. 폼 검증 JS 인라인
 ══════════════════════════════════════════════════════════════
 -->
 </body>

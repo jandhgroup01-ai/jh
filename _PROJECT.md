@@ -60,16 +60,17 @@ HOME / 회사소개 / 사업소개 / 투자정보 / 고객센터 / 문의하기
 - [2026-06-22] 05_insights 하단 I4 DISCLAIMER 섹션 제거(사령관 지시). 단 푸터 면책고지(class="disclaimer")는 유지 → 규제 고지 노출 계속(컴플라이언스 OK). `.disc-box` CSS는 미사용으로 잔존(무해)
 - [2026-06-22] 검증 환경 메모: Chrome `C:\Program Files\Google\Chrome\Application\chrome.exe`, Playwright는 `E:\onedrive\codex\mas\node_modules`. OneDrive 폴더 쓰기 거부 → 스크린샷은 `%TEMP%`로 출력
 
-## 산출물 파일
+## 산출물 파일 (클라이언트 전달용 영어 파일명, 2026-06-22 정리)
 | 파일 | 페이지 |
 |------|--------|
-| 02_HOME시안.html | HOME (메인) |
-| 03_about.html | 회사소개 |
-| 04_business.html | 사업소개 |
-| 05_insights.html | 투자정보 |
-| 06_support.html | 고객센터 |
-| 07_contact.html | 문의하기 |
-| 08_리포트상세.html | 투자정보 리포트 상세 (05에서 진입) |
+| index.html | HOME (메인, 루트 `/`) |
+| about.html | 회사소개 |
+| business.html | 사업소개 |
+| insights.html | 투자정보 |
+| support.html | 고객센터 |
+| contact.html | 문의하기 |
+| report.html | 투자정보 리포트 상세 (insights에서 진입) |
+| 01_와이어프레임.html | (내부) 기획 와이어프레임 |
 
 ## 다음 할 일
 - [ ] **MVP 스코프 확정 ★컨펌 게이트★** (base 파이프라인 시작 조건)
