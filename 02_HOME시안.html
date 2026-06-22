@@ -1045,8 +1045,8 @@ section{position:relative;}
 - 문의 폼 백엔드 → HOME엔 CTA 버튼만(문의 페이지로 이동), 폼 미구현
 
 ■ 확정 — 사령관 지시 2026-06-22 (7차) — ABOUT 인트로 로고 비주얼 업그레이드
-- H3 ABOUT 인트로 우측 placeholder → .logo-visual 교체: logo.png 중앙 배치, 다크+골드 라디얼/선형 그라디언트 배경, 대각선 광택 sweep(lv-sweep), 로고 골드 글로우 호흡(lv-breathe), 5개 twinkle 점(lv-spark) 독립 타이밍 — 확정(사령관 지시 2026-06-22: ABOUT 인트로 로고+그라디언트+반짝임)
-- prefers-reduced-motion 블록: .lv-logo/.logo-visual::before/.lv-spark 모션 차단, .lv-spark opacity:.7 정적 노출 추가 — 확정(사령관 지시 2026-06-22: ABOUT 인트로 로고+그라디언트+반짝임)
+- H3 ABOUT 인트로 우측 placeholder → .logo-visual 교체: logo.png 중앙 배치, 다크+골드 라디얼/선형 그라디언트 배경, 로고 정적 골드 글로우(.lv-logo drop-shadow), 대각선 빛 글린트 sweep(.logo-visual::before, lv-glint 5s·68% 멈춤 후 한 번 스윽 지나감) — 확정(사령관 지시 2026-06-22: ABOUT 인트로 로고+그라디언트+반짝임 / 동그라미 sparkle는 산만하다 하여 제거, 로고 가로지르는 글린트로 교체)
+- prefers-reduced-motion 블록: .logo-visual::before 글린트 display:none — 확정(사령관 지시 2026-06-22)
 
 ■ 확정 — 사령관 지시 2026-06-22 (6차)
 - 전역 한글 줄바꿈 고정: body{word-break:keep-all; overflow-wrap:break-word;} 추가 (6개 파일 전부) — 확정(사령관 지시 2026-06-22: 줄바꿈 전역고정 + HOME 내비 배선)
