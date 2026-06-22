@@ -153,7 +153,7 @@ section{position:relative;}
   *{animation:none!important;transition:none!important;scroll-behavior:auto;}
   .reveal-line,.reveal-phrase{-webkit-text-fill-color:currentColor;color:inherit;background:none;}
   .fade-up,.stagger>*{opacity:1;transform:none;}
-  .logo-visual::before{display:none;}
+  .lv-shine{display:none;}
 }
 
 /* ══════════════════════════════════════
@@ -273,16 +273,21 @@ section{position:relative;}
   isolation:isolate;
 }
 /* 로고 — 중앙, 은은한 골드 글로우(정적) */
-.lv-logo{ position:relative; z-index:3; width:clamp(150px,42%,240px); height:auto; filter:drop-shadow(0 0 14px rgba(234,179,8,.26)); }
-/* 글린트 — 대각선 빛 띠가 로고를 가로질러 한 번 스윽 지나감(긴 텀) */
-.logo-visual::before{
-  content:""; position:absolute; z-index:4; pointer-events:none;
-  top:-30%; left:-40%; width:24%; height:160%;
-  background:linear-gradient(90deg, transparent, rgba(255,255,255,.55) 50%, transparent);
-  transform:rotate(16deg); filter:blur(3px); opacity:0;
-  animation:lv-glint 5s ease-in-out infinite;
+.lv-logo-wrap{ position:relative; display:inline-block; z-index:3; width:clamp(150px,42%,240px); line-height:0; }
+.lv-logo{ display:block; width:100%; height:auto; filter:drop-shadow(0 0 14px rgba(234,179,8,.26)); }
+/* 글린트 — 로고를 흰색 실루엣으로 복제 + 대각선 띠(clip-path)만 로고 위를 스윽 지나감 */
+.lv-shine{
+  position:absolute; inset:0; width:100%; height:100%; pointer-events:none;
+  filter:brightness(0) invert(1);   /* 골드 로고 → 흰색 실루엣(알파 유지) */
+  mix-blend-mode:screen; opacity:0;
+  animation:lv-shine 5s ease-in-out infinite;
 }
-@keyframes lv-glint{ 0%,68%{left:-40%;opacity:0;} 73%{opacity:.95;} 95%{opacity:.95;} 100%{left:132%;opacity:0;} }
+@keyframes lv-shine{
+  0%,68%   { clip-path:polygon(-40% 0, -18% 0, -42% 100%, -64% 100%); opacity:0; }
+  73%      { opacity:.9; }
+  95%      { opacity:.9; }
+  100%     { clip-path:polygon(118% 0, 140% 0, 116% 100%, 94% 100%); opacity:0; }
+}
 @media (max-width:560px){ .logo-visual{min-height:200px;} }
 
 /* ══════════════════════════════════════
@@ -664,7 +669,10 @@ section{position:relative;}
       </p>
     </div>
     <div class="intro-visual logo-visual fade-up" aria-label="J&H그룹 로고">
-      <img src="logo.png" alt="J&H GROUP" class="lv-logo">
+      <span class="lv-logo-wrap">
+        <img src="logo.png" alt="J&H GROUP" class="lv-logo">
+        <img src="logo.png" alt="" aria-hidden="true" class="lv-shine">
+      </span>
     </div>
   </div>
 </section>
@@ -1045,8 +1053,8 @@ section{position:relative;}
 - 문의 폼 백엔드 → HOME엔 CTA 버튼만(문의 페이지로 이동), 폼 미구현
 
 ■ 확정 — 사령관 지시 2026-06-22 (7차) — ABOUT 인트로 로고 비주얼 업그레이드
-- H3 ABOUT 인트로 우측 placeholder → .logo-visual 교체: logo.png 중앙 배치, 다크+골드 라디얼/선형 그라디언트 배경, 로고 정적 골드 글로우(.lv-logo drop-shadow), 대각선 빛 글린트 sweep(.logo-visual::before, lv-glint 5s·68% 멈춤 후 한 번 스윽 지나감) — 확정(사령관 지시 2026-06-22: ABOUT 인트로 로고+그라디언트+반짝임 / 동그라미 sparkle는 산만하다 하여 제거, 로고 가로지르는 글린트로 교체)
-- prefers-reduced-motion 블록: .logo-visual::before 글린트 display:none — 확정(사령관 지시 2026-06-22)
+- H3 ABOUT 인트로 우측 placeholder → .logo-visual 교체: logo.png 중앙 배치, 다크+골드 라디얼/선형 그라디언트 배경, 로고 정적 골드 글로우(.lv-logo drop-shadow). 글린트 = 로고를 흰색 실루엣으로 복제(.lv-shine, filter:brightness(0) invert(1) + mix-blend:screen)하고 clip-path 대각선 띠가 5s마다 한 번 로고 글자 위를 스윽 지나감(68% 멈춤). ※ 박스 전체가 아니라 로고 글자 모양 안에서만 빛남. CSS mask는 헤드리스 환경에서 미동작 확인되어 clip-path 복제 방식 채택 — 확정(사령관 지시 2026-06-22: 글린트는 로고만 가로지를 것 / 동그라미 sparkle 제거)
+- prefers-reduced-motion 블록: .lv-shine 글린트 display:none — 확정(사령관 지시 2026-06-22)
 
 ■ 확정 — 사령관 지시 2026-06-22 (6차)
 - 전역 한글 줄바꿈 고정: body{word-break:keep-all; overflow-wrap:break-word;} 추가 (6개 파일 전부) — 확정(사령관 지시 2026-06-22: 줄바꿈 전역고정 + HOME 내비 배선)
