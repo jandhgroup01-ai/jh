@@ -21,8 +21,9 @@
 
 ---
 
-## 저장소
-- GitHub: `https://github.com/jandhgroup01-ai/jh` (main) — 2026-06-22 초기 커밋 98be969
+## 저장소 / 배포
+- GitHub: `https://github.com/jandhgroup01-ai/jh` (main)
+- **라이브(GitHub Pages): https://jandhgroup01-ai.github.io/jh/** — 2026-06-22 배포. 루트 index.html → 02_HOME시안.html 리다이렉트. main/root 소스, https 강제. (Vercel은 핸드폰 인증 이슈로 보류)
 - origin은 토큰 없는 클린 URL. 푸시 시 토큰 재인증 필요. 레퍼런스 원본·materials는 .gitignore 제외
 
 ## 트랙
