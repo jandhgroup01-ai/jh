@@ -153,8 +153,7 @@ section{position:relative;}
   *{animation:none!important;transition:none!important;scroll-behavior:auto;}
   .reveal-line,.reveal-phrase{-webkit-text-fill-color:currentColor;color:inherit;background:none;}
   .fade-up,.stagger>*{opacity:1;transform:none;}
-  .lv-logo,.logo-visual::before,.lv-spark{animation:none!important;}
-  .lv-spark{opacity:.7;}
+  .logo-visual::before{display:none;}
 }
 
 /* ══════════════════════════════════════
@@ -273,35 +272,17 @@ section{position:relative;}
     linear-gradient(135deg,#161616,#242424);
   isolation:isolate;
 }
-/* 은은한 광택 sweep(대각선 빛 띠가 천천히 지나감) */
+/* 로고 — 중앙, 은은한 골드 글로우(정적) */
+.lv-logo{ position:relative; z-index:3; width:clamp(150px,42%,240px); height:auto; filter:drop-shadow(0 0 14px rgba(234,179,8,.26)); }
+/* 글린트 — 대각선 빛 띠가 로고를 가로질러 한 번 스윽 지나감(긴 텀) */
 .logo-visual::before{
-  content:""; position:absolute; top:-40%; left:-60%; width:50%; height:180%;
-  background:linear-gradient(100deg, transparent, rgba(255,255,255,.10) 45%, rgba(255,255,255,.18) 50%, rgba(255,255,255,.10) 55%, transparent);
-  transform:rotate(8deg); filter:blur(2px);
-  animation:lv-sweep 6.5s cubic-bezier(.5,0,.5,1) infinite;
-  z-index:2; pointer-events:none;
+  content:""; position:absolute; z-index:4; pointer-events:none;
+  top:-30%; left:-40%; width:24%; height:160%;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.55) 50%, transparent);
+  transform:rotate(16deg); filter:blur(3px); opacity:0;
+  animation:lv-glint 5s ease-in-out infinite;
 }
-@keyframes lv-sweep{ 0%,72%{left:-60%;} 100%{left:120%;} }
-/* 로고 — 중앙, 골드 글로우, 아주 느린 호흡 */
-.lv-logo{
-  position:relative; z-index:3; width:clamp(150px,42%,240px); height:auto;
-  filter:drop-shadow(0 0 18px rgba(234,179,8,.28));
-  animation:lv-breathe 4.5s ease-in-out infinite;
-}
-@keyframes lv-breathe{ 0%,100%{transform:scale(1);filter:drop-shadow(0 0 14px rgba(234,179,8,.22));} 50%{transform:scale(1.03);filter:drop-shadow(0 0 24px rgba(234,179,8,.40));} }
-/* 반짝이는 점들(twinkle) — 위치/타이밍 제각각 */
-.lv-spark{
-  position:absolute; z-index:3; width:6px; height:6px; border-radius:50%;
-  background:#fff; box-shadow:0 0 8px 2px rgba(255,255,255,.85), 0 0 14px 4px rgba(234,179,8,.6);
-  opacity:0; transform:scale(.4);
-  animation:lv-twinkle 2.6s ease-in-out infinite;
-}
-.lv-spark.s1{ top:22%; left:24%; animation-delay:.0s; }
-.lv-spark.s2{ top:64%; left:30%; animation-delay:.8s; width:4px;height:4px; }
-.lv-spark.s3{ top:34%; left:76%; animation-delay:1.4s; }
-.lv-spark.s4{ top:74%; left:70%; animation-delay:2.0s; width:5px;height:5px; }
-.lv-spark.s5{ top:48%; left:52%; animation-delay:1.1s; width:3px;height:3px; }
-@keyframes lv-twinkle{ 0%,100%{opacity:0;transform:scale(.4);} 45%,55%{opacity:1;transform:scale(1);} }
+@keyframes lv-glint{ 0%,68%{left:-40%;opacity:0;} 73%{opacity:.95;} 95%{opacity:.95;} 100%{left:132%;opacity:0;} }
 @media (max-width:560px){ .logo-visual{min-height:200px;} }
 
 /* ══════════════════════════════════════
@@ -683,11 +664,6 @@ section{position:relative;}
       </p>
     </div>
     <div class="intro-visual logo-visual fade-up" aria-label="J&H그룹 로고">
-      <span class="lv-spark s1" aria-hidden="true"></span>
-      <span class="lv-spark s2" aria-hidden="true"></span>
-      <span class="lv-spark s3" aria-hidden="true"></span>
-      <span class="lv-spark s4" aria-hidden="true"></span>
-      <span class="lv-spark s5" aria-hidden="true"></span>
       <img src="logo.png" alt="J&H GROUP" class="lv-logo">
     </div>
   </div>
