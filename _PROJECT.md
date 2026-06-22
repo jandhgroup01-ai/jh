@@ -21,6 +21,10 @@
 
 ---
 
+## 저장소
+- GitHub: `https://github.com/jandhgroup01-ai/jh` (main) — 2026-06-22 초기 커밋 98be969
+- origin은 토큰 없는 클린 URL. 푸시 시 토큰 재인증 필요. 레퍼런스 원본·materials는 .gitignore 제외
+
 ## 트랙
 - **/design base** (멀티페이지 기업사이트)
 - 폰트: Pretendard(헤드라인) + Suit(바디), 명조 금지
