@@ -1,0 +1,45 @@
+{
+  "project": "jh",
+  "displayName": "J&H그룹",
+  "track": "base",
+  "type_seed": "landing",
+  "type_resolved": "multipage-corporate-site",
+  "type_note": "seed 원본은 landing이었으나 사령관 지시로 base(멀티페이지) 확정 (2026-06-22)",
+  "style": "clean_professional",
+  "purpose": "conversion",
+  "menu": ["HOME", "회사소개", "사업소개", "투자정보", "고객센터", "문의하기"],
+  "genesis": {
+    "design_variance": 7,
+    "motion_intensity": 9,
+    "visual_density": 3
+  },
+  "mood_keywords": ["전문적인", "스타일리쉬한", "여백이 많은"],
+  "colors": {
+    "primary": "#1a1a1a",
+    "secondary": "#f5f5f5",
+    "accent": "#eab308"
+  },
+  "font": {
+    "headline": "Pretendard",
+    "body": "Suit",
+    "rule": "명조 금지 (base 트랙 규칙, OP_18)"
+  },
+  "beat": {
+    "who_they_are": "정보를 얻고싶고 투자자문을 구하고싶은 사람들",
+    "who_we_are": "주식에 대한 정보를 제공하는 사람들",
+    "how_they_feel": "매번 여기저기 정보를 듣고 투자하지만 수익률이 항상 나빴다",
+    "what_to_do": "3년간 축적된 시장데이터 분석 노하우, 초보투자자부터 전문투자자까지 맞춤 정보 제공",
+    "why_we_are": "주식·코인 통합 분석 서비스"
+  },
+  "style_references": ["materials/style_01.png"],
+  "mood_images": [],
+  "contact": {
+    "phone": "010-8340-8770",
+    "email": "jandhgroup01@gmail.com",
+    "address": "서울특별시 성동구 성수일로8길 5, 서울숲 SKV1타워 제A동 611호",
+    "bizRegNo": "881-87-03538"
+  },
+  "reference": { "status": "확보됨", "analyzed": false },
+  "pipeline_stage": "브리프 확정 → /ref 분석 + MVP 스코프 컨펌 대기",
+  "created": "2026-06-22"
+}
