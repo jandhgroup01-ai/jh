@@ -139,6 +139,13 @@ section{position:relative;}
 .reveal-phrase:nth-child(4){transition-delay:8.0s;}
 .reveal-phrase:nth-child(5){transition-delay:10.5s;}
 .reveal-phrase:nth-child(6){transition-delay:13.0s;}
+/* 히어로 슬라이더 전용: 8초 슬라이드 안에 4구절 reveal이 충분히 보이도록 호흡 압축
+   (채움 1.5s + 구절 간 약 1.5s 간격 → 4구절째 4.5s 시작·6.0s 완료, 이후 약 2s 여유) */
+.hero__slide .reveal-phrase{transition:background-position 1.5s cubic-bezier(.22,.61,.36,1);}
+.hero__slide .reveal-phrase:nth-child(1){transition-delay:.2s;}
+.hero__slide .reveal-phrase:nth-child(2){transition-delay:1.6s;}
+.hero__slide .reveal-phrase:nth-child(3){transition-delay:3.0s;}
+.hero__slide .reveal-phrase:nth-child(4){transition-delay:4.4s;}
 
 /* 스크롤 진입 페이드/슬라이드업 */
 .fade-up{opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
@@ -154,6 +161,10 @@ section{position:relative;}
   .reveal-line,.reveal-phrase{-webkit-text-fill-color:currentColor;color:inherit;background:none;}
   .fade-up,.stagger>*{opacity:1;transform:none;}
   .lv-shine{display:none;}
+  /* 히어로 슬라이드: 자동전환·크로스페이드 약화 — 첫 슬라이드만 정적 표시 */
+  .hero__video{transition:none;}
+  .hero__slide{transition:none;}
+  .hero__progress{display:none;}
 }
 
 /* ══════════════════════════════════════
@@ -213,7 +224,9 @@ section{position:relative;}
    H1 히어로 (3레이어: 영상→딤→텍스트)
    ══════════════════════════════════════ */
 .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;background:var(--black);}
-.hero__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;}
+/* L1 배경영상 — 3개 겹쳐 깔고 활성 슬라이드만 노출(크로스페이드) */
+.hero__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;opacity:0;transition:opacity .7s ease;}
+.hero__video.is-active{opacity:1;}
 .hero__dim{
   position:absolute;inset:0;z-index:2;
   background:linear-gradient(180deg,rgba(13,13,13,.55) 0%,rgba(13,13,13,.35) 40%,rgba(13,13,13,.92) 100%);
@@ -222,6 +235,23 @@ section{position:relative;}
 .hero__content .label{margin-bottom:24px;}
 .hero__title{font-size:clamp(36px,5.5vw,64px);font-weight:800;line-height:1.16;margin-bottom:22px;max-width:16ch;}
 .hero__sub{font-size:clamp(16px,1.6vw,20px);color:rgba(255,255,255,.78);max-width:46ch;font-weight:400;}
+
+/* ── 텍스트 슬라이드 3벌: 같은 자리에 겹쳐 두고 활성만 표시 ── */
+.hero__slides{position:relative;}
+.hero__slide{position:absolute;inset:0;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .55s ease;}
+.hero__slide.is-active{position:relative;opacity:1;visibility:visible;pointer-events:auto;}
+
+/* ── 인스타 스토리식 프로그레스 바 (히어로 하단) ── */
+.hero__progress{
+  position:absolute;left:var(--pad);right:var(--pad);bottom:clamp(20px,4vh,40px);z-index:4;
+  display:flex;gap:10px;max-width:var(--maxw);margin:0 auto;
+}
+.hero__bar{flex:1 1 0;height:3px;border-radius:999px;background:rgba(255,255,255,.22);overflow:hidden;cursor:pointer;}
+.hero__bar-fill{display:block;height:100%;width:0;background:var(--gold);border-radius:999px;}
+/* 지난 슬라이드 = 가득 채움 / 다음 슬라이드 = 빈 상태 */
+.hero__bar.is-done .hero__bar-fill{width:100%;}
+/* 현재 슬라이드 = 0→100% 채움(슬라이드 노출 시간과 동기화, JS가 --dur 주입) */
+.hero__bar.is-active .hero__bar-fill{width:100%;transition:width var(--dur,8s) linear;}
 .scroll-ind{
   position:absolute;left:50%;bottom:28px;transform:translateX(-50%);z-index:3;
   display:flex;flex-direction:column;align-items:center;gap:8px;
@@ -240,6 +270,8 @@ section{position:relative;}
 .stat__num{font-family:'Pretendard';font-weight:800;font-size:clamp(44px,6vw,84px);line-height:1;color:#fff;display:flex;align-items:baseline;gap:4px;}
 .stat__num .unit{font-size:.42em;color:var(--gold);font-weight:700;}
 .stat__num .plus{color:var(--gold);}
+/* 숫자 카운터가 아닌 텍스트 스탯("다양한") — 큰 텍스트, 골드 포인트 가능 */
+.stat__word{font-family:'Pretendard';font-weight:800;font-size:clamp(34px,4.4vw,60px);line-height:1.05;}
 .stat__label{margin-top:16px;font-size:14px;color:rgba(255,255,255,.6);line-height:1.6;}
 .stat__slot{font-size:11px;color:var(--gold-soft);letter-spacing:.1em;margin-top:6px;opacity:.8;}
 
@@ -327,7 +359,9 @@ section{position:relative;}
   transform:scale(1);transition:transform .7s cubic-bezier(.16,1,.3,1);
 }
 .biz-panel:hover .biz-panel__bg,.biz-panel:focus-within .biz-panel__bg{transform:scale(1.06);}
-.biz-panel__bg::after{content:"";position:absolute;inset:12px;border:1px dashed rgba(234,179,8,.22);border-radius:9px;pointer-events:none;}
+/* 실제 이미지 채움 (3:4 패널, cover) — placeholder 점선 보더는 이미지 있을 때 미적용 */
+.biz-panel__bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+.biz-panel__bg.has-img{background:none;}
 /* 오버레이 — 하단 그라데이션 딤 */
 .biz-panel__overlay{
   position:absolute;inset:0;z-index:2;
@@ -420,11 +454,12 @@ section{position:relative;}
 }
 .strong-card:hover{transform:translateY(-6px);border-color:rgba(234,179,8,.5);background:rgba(234,179,8,.05);}
 .strong-icon{
-  width:54px;height:54px;border-radius:12px;
+  width:64px;height:64px;border-radius:14px;
   border:1px solid rgba(234,179,8,.4);background:rgba(234,179,8,.07);
   display:flex;align-items:center;justify-content:center;color:var(--gold);font-weight:700;font-family:'Pretendard';font-size:20px;
-  margin-bottom:22px;
+  margin-bottom:22px;overflow:hidden;
 }
+.strong-icon img{width:42px;height:42px;object-fit:contain;display:block;}
 .strong-card h4{font-size:18px;font-weight:700;margin-bottom:12px;}
 .strong-card p{font-size:14px;color:rgba(255,255,255,.65);line-height:1.75;}
 
@@ -600,24 +635,57 @@ section{position:relative;}
   <a href="contact.html">문의하기</a>
 </div>
 
-<!-- ══ H1 히어로 (3레이어: 영상→딤→텍스트 reveal) ══ -->
+<!-- ══ H1 히어로 (3레이어: 영상→딤→텍스트 reveal / 3슬라이드 인스타 스토리식 전환) ══ -->
 <section class="hero" id="top">
-  <!-- L1 배경영상 -->
-  <video class="hero__video" src="hero.mp4" autoplay muted loop playsinline preload="auto"></video>
+  <!-- L1 배경영상 3개 — 활성 슬라이드만 opacity:1 + 재생(크로스페이드) -->
+  <video class="hero__video is-active" data-slide="0" src="hero.mp4"  muted loop playsinline preload="auto"></video>
+  <video class="hero__video"           data-slide="1" src="hero2.mp4" muted loop playsinline preload="metadata"></video>
+  <video class="hero__video"           data-slide="2" src="hero3.mp4" muted loop playsinline preload="metadata"></video>
   <!-- L2 어두운 딤 -->
   <div class="hero__dim"></div>
-  <!-- L3 텍스트 오버레이 -->
+  <!-- L3 텍스트 오버레이 3벌 (영상마다 카피 전환, 활성만 표시) -->
   <div class="hero__content wrap">
-    <span class="label fade-up">J&H GROUP · SINCE 2023</span>
-    <!-- 카피 확정 전: 임시 헤드라인 (비전 발췌, 수익보장·과장 금지) -->
-    <!-- 구절(어절) 단위 호흡 reveal: 각 구절이 회색→흰색으로 차오르고 사이에 멈춤 -->
-    <h1 class="hero__title reveal-data">
-      <span class="reveal-phrase">성공적인</span>
-      <span class="reveal-phrase">자산관리의</span>
-      <span class="reveal-phrase">가장 신뢰할 수 있는</span>
-      <span class="reveal-phrase">파트너</span>
-    </h1>
-    <p class="hero__sub fade-up">주식과 가상자산을 아우르는 통합 시장 분석으로,<br>올바른 투자 정보와 교육을 전합니다.</p>
+    <div class="hero__slides">
+      <!-- 슬라이드 1 — 신뢰·파트너십 (기존) -->
+      <div class="hero__slide is-active" data-slide="0">
+        <span class="label fade-up in">J&H GROUP · SINCE 2023</span>
+        <h1 class="hero__title reveal-data">
+          <span class="reveal-phrase">성공적인</span>
+          <span class="reveal-phrase">자산관리의</span>
+          <span class="reveal-phrase">가장 신뢰할 수 있는</span>
+          <span class="reveal-phrase">파트너</span>
+        </h1>
+        <p class="hero__sub fade-up in">주식과 가상자산을 아우르는 통합 시장 분석으로,<br>올바른 투자 정보와 교육을 전합니다.</p>
+      </div>
+      <!-- 슬라이드 2 — 통합 분석·전문성 (09_히어로카피.md) -->
+      <div class="hero__slide" data-slide="1">
+        <span class="label fade-up">MARKET ANALYSIS · 통합 시장 분석</span>
+        <h1 class="hero__title reveal-data">
+          <span class="reveal-phrase">국내와 해외</span>
+          <span class="reveal-phrase">주식부터</span>
+          <span class="reveal-phrase">가상자산까지</span>
+          <span class="reveal-phrase">하나의 시야로</span>
+        </h1>
+        <p class="hero__sub fade-up">25년간 축적된 데이터 분석 노하우로,<br>흩어진 시장을 하나의 관점으로 읽습니다.</p>
+      </div>
+      <!-- 슬라이드 3 — 교육·투자자 보호 (09_히어로카피.md) -->
+      <div class="hero__slide" data-slide="2">
+        <span class="label fade-up">INVESTOR EDUCATION · 올바른 투자</span>
+        <h1 class="hero__title reveal-data">
+          <span class="reveal-phrase">정보보다</span>
+          <span class="reveal-phrase">먼저</span>
+          <span class="reveal-phrase">원칙을</span>
+          <span class="reveal-phrase">배우는 투자</span>
+        </h1>
+        <p class="hero__sub fade-up">체계적인 리스크 관리 교육으로,<br>스스로 판단하는 힘을 길러 드립니다.</p>
+      </div>
+    </div>
+  </div>
+  <!-- 인스타 스토리식 프로그레스 바 (3개) -->
+  <div class="hero__progress" id="heroProgress" aria-hidden="true">
+    <button class="hero__bar is-active" type="button" data-slide="0" aria-label="슬라이드 1"><span class="hero__bar-fill"></span></button>
+    <button class="hero__bar"           type="button" data-slide="1" aria-label="슬라이드 2"><span class="hero__bar-fill"></span></button>
+    <button class="hero__bar"           type="button" data-slide="2" aria-label="슬라이드 3"><span class="hero__bar-fill"></span></button>
   </div>
   <div class="scroll-ind">
     <div class="mouse"></div>
@@ -631,21 +699,20 @@ section{position:relative;}
     <span class="label fade-up" style="margin-bottom:48px;display:inline-flex;">BY THE NUMBERS</span>
     <div class="stats" id="stats">
       <div class="stat">
-        <div class="stat__num"><span class="count" data-target="3">0</span><span class="unit">년+</span></div>
+        <div class="stat__num"><span class="count" data-target="25">0</span><span class="unit">년+</span></div>
         <div class="stat__label">축적된 시장 데이터<br>분석 노하우</div>
       </div>
       <div class="stat">
-        <div class="stat__num"><span class="count" data-target="2">0</span><span class="unit">개 시장</span></div>
-        <div class="stat__label">주식 · 코인<br>통합 분석 영역</div>
+        <div class="stat__num"><span class="stat__word fade-up gold">다양한</span></div>
+        <div class="stat__label">주식·ETF·가상자산·해외주식 등<br>다양한 시장 분석</div>
       </div>
       <div class="stat">
-        <div class="stat__num"><span class="count" data-target="100">0</span><span class="plus">+</span></div>
+        <div class="stat__num"><span class="count" data-target="999">0</span><span class="plus">+</span></div>
         <div class="stat__label">누적 시장 분석 리포트</div>
-        <div class="stat__slot">※ 수치 미정 — 슬롯</div>
       </div>
       <div class="stat">
-        <div class="stat__num"><span class="count" data-target="4">0</span><span class="unit">개</span></div>
-        <div class="stat__label">제공 정보 카테고리<br>(국내·해외·가상자산·교육)</div>
+        <div class="stat__num"><span class="stat__word fade-up">다양한</span></div>
+        <div class="stat__label">제공 정보 카테고리<br>(국내·해외·가상자산·ETF·교육)</div>
       </div>
     </div>
   </div>
@@ -689,7 +756,7 @@ section{position:relative;}
     </div>
     <div class="biz-panels fade-up">
       <article class="biz-panel" tabindex="0">
-        <div class="biz-panel__bg">[ SLOT-IMG-HOME-BIZ-1 · 3:4 ]</div>
+        <div class="biz-panel__bg has-img"><img src="01_hombiz.png" alt="국내 주식 시장 분석" loading="lazy"></div>
         <div class="biz-panel__overlay"></div>
         <div class="biz-panel__body">
           <span class="biz-panel__no">01</span>
@@ -698,7 +765,7 @@ section{position:relative;}
         </div>
       </article>
       <article class="biz-panel" tabindex="0">
-        <div class="biz-panel__bg">[ SLOT-IMG-HOME-BIZ-2 · 3:4 ]</div>
+        <div class="biz-panel__bg has-img"><img src="02_hombiz.png" alt="해외 주식 시장 분석" loading="lazy"></div>
         <div class="biz-panel__overlay"></div>
         <div class="biz-panel__body">
           <span class="biz-panel__no">02</span>
@@ -707,7 +774,7 @@ section{position:relative;}
         </div>
       </article>
       <article class="biz-panel" tabindex="0">
-        <div class="biz-panel__bg">[ SLOT-IMG-HOME-BIZ-3 · 3:4 ]</div>
+        <div class="biz-panel__bg has-img"><img src="03_hombiz.png" alt="가상자산 시장 분석" loading="lazy"></div>
         <div class="biz-panel__overlay"></div>
         <div class="biz-panel__body">
           <span class="biz-panel__no">03</span>
@@ -716,7 +783,7 @@ section{position:relative;}
         </div>
       </article>
       <article class="biz-panel" tabindex="0">
-        <div class="biz-panel__bg">[ SLOT-IMG-HOME-BIZ-4 · 3:4 ]</div>
+        <div class="biz-panel__bg has-img"><img src="04_hombiz.png" alt="투자 교육·컨설팅" loading="lazy"></div>
         <div class="biz-panel__overlay"></div>
         <div class="biz-panel__body">
           <span class="biz-panel__no">04</span>
@@ -749,27 +816,26 @@ section{position:relative;}
     <h2 class="t-sec fade-up" style="margin-bottom:clamp(40px,6vw,64px);">왜 J&H그룹인가</h2>
     <div class="strong-grid stagger">
       <div class="strong-card">
-        <div class="strong-icon">[ IC ]</div>
-        <h4>3년 데이터 노하우</h4>
-        <p>3년간 축적된 시장 데이터 분석 노하우로 정보의 신뢰도를 높입니다.</p>
+        <div class="strong-icon"><img src="ic_01.png" alt="데이터 노하우 아이콘" loading="lazy"></div>
+        <h4>25년 데이터 노하우</h4>
+        <p>25년간 축적된 시장 데이터 분석 노하우로 정보의 신뢰도를 높입니다.</p>
       </div>
       <div class="strong-card">
-        <div class="strong-icon">[ IC ]</div>
+        <div class="strong-icon"><img src="ic_02.png" alt="통합 분석 아이콘" loading="lazy"></div>
         <h4>주식·코인 통합 분석</h4>
         <p>주식과 가상자산을 하나의 관점에서 통합 분석하는 서비스를 제공합니다.</p>
       </div>
       <div class="strong-card">
-        <div class="strong-icon">[ IC ]</div>
+        <div class="strong-icon"><img src="ic_03.png" alt="리스크 관리 아이콘" loading="lazy"></div>
         <h4>체계적 리스크 관리</h4>
         <p>체계적인 리스크 관리 교육으로 안정적인 투자 판단을 돕습니다.</p>
       </div>
       <div class="strong-card">
-        <div class="strong-icon">[ IC ]</div>
+        <div class="strong-icon"><img src="ic_04.png" alt="맞춤형 정보 제공 아이콘" loading="lazy"></div>
         <h4>맞춤형 정보 제공</h4>
         <p>초보 투자자부터 전문 투자자까지 수준에 맞춘 정보를 제공합니다.</p>
       </div>
     </div>
-    <p class="t-cap" style="color:rgba(255,255,255,.35);margin-top:24px;">※ 아이콘 슬롯 SLOT-ICON-STRONG-1~4 (1:1)</p>
   </div>
 </section>
 
@@ -982,13 +1048,72 @@ section{position:relative;}
 
   document.querySelectorAll('.fade-up,.stagger,.reveal-data').forEach(function(el){io.observe(el);});
 
-  // 히어로 reveal은 로드 직후 트리거
-  window.addEventListener('load',function(){
-    var heroReveal=document.querySelector('.hero .reveal-data');
-    if(heroReveal){setTimeout(function(){heroReveal.classList.add('revealed');},350);}
-    var heroFades=document.querySelectorAll('.hero .fade-up');
-    heroFades.forEach(function(el,i){setTimeout(function(){el.classList.add('in');},250+i*120);});
-  });
+  // ── 히어로 3슬라이드 인스타 스토리식 컨트롤러 ──
+  (function(){
+    var hero=document.querySelector('.hero');
+    if(!hero)return;
+    var SLIDE_MS=8000;                 // 각 슬라이드 노출 시간(약 8초)
+    var videos=Array.prototype.slice.call(hero.querySelectorAll('.hero__video'));
+    var slides=Array.prototype.slice.call(hero.querySelectorAll('.hero__slide'));
+    var bars=Array.prototype.slice.call(hero.querySelectorAll('.hero__bar'));
+    var n=slides.length, cur=0, timer=null;
+    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+    function playVideo(v){ if(v&&v.play){ var p=v.play(); if(p&&p.catch)p.catch(function(){}); } }
+
+    function show(i,first){
+      cur=i;
+      // 영상: 활성만 재생 + opacity:1
+      videos.forEach(function(v,k){
+        if(k===i){ v.classList.add('is-active'); try{v.currentTime=0;}catch(e){} playVideo(v); }
+        else{ v.classList.remove('is-active'); try{v.pause();}catch(e){} }
+      });
+      // 텍스트: 활성 슬라이드만 표시 + reveal 재생(회색→흰색 차오름)
+      slides.forEach(function(s,k){
+        var on=(k===i);
+        s.classList.toggle('is-active',on);
+        var rv=s.querySelector('.reveal-data');
+        var fades=s.querySelectorAll('.fade-up');
+        if(on){
+          // reveal 리셋 후 재트리거 (reflow로 transition 재생 보장)
+          if(rv){ rv.classList.remove('revealed'); void rv.offsetWidth; rv.classList.add('revealed'); }
+          fades.forEach(function(el,j){ el.classList.remove('in'); void el.offsetWidth; setTimeout(function(){el.classList.add('in');}, 120+j*120); });
+        }else{
+          if(rv)rv.classList.remove('revealed');
+          fades.forEach(function(el){el.classList.remove('in');});
+        }
+      });
+      // 프로그레스 바: 지난=채움 / 현재=진행 / 다음=빈
+      bars.forEach(function(b,k){
+        b.classList.remove('is-active','is-done');
+        var fill=b.querySelector('.hero__bar-fill');
+        if(k<i){ b.classList.add('is-done'); }
+        else if(k===i){
+          // 채움 리셋 후 노출 시간만큼 0→100%
+          fill.style.transition='none'; fill.style.width='0';
+          b.style.setProperty('--dur',(SLIDE_MS/1000)+'s');
+          void fill.offsetWidth;
+          fill.style.transition=''; b.classList.add('is-active');
+        }else{
+          fill.style.transition='none'; fill.style.width='0'; void fill.offsetWidth; fill.style.transition='';
+        }
+      });
+    }
+
+    function next(){ show((cur+1)%n); schedule(); }
+    function schedule(){ if(reduce)return; clearTimeout(timer); timer=setTimeout(next,SLIDE_MS); }
+
+    // 바 클릭 시 해당 슬라이드로 점프
+    bars.forEach(function(b){
+      b.addEventListener('click',function(){ var t=parseInt(b.getAttribute('data-slide'),10)||0; show(t); schedule(); });
+    });
+
+    window.addEventListener('load',function(){
+      videos.forEach(function(v){ if(v.classList.contains('is-active'))playVideo(v); });
+      show(0,true);
+      schedule();
+    });
+  })();
 
   // ── 숫자 카운트업 ──
   var statsDone=false;
@@ -1051,6 +1176,28 @@ section{position:relative;}
 - 투자정보 카드 제목·날짜 → 임시(주석 "콘텐츠 제목 미정") 표기
 - H5/H8 영상 → 제거(사령관 피드백). H5=중앙 정렬 비전 스테이트먼트(골드 수직 라인 차별 요소), H8=좌측 헤드라인+우측 핵심가치4 골드보더 카드(레이아웃·배경톤 명확히 차별). 텍스트 reveal 유지 — ★사령관 피드백(2026-06-22) #2: H5↔H8 디자인 차별화★
 - 문의 폼 백엔드 → HOME엔 CTA 버튼만(문의 페이지로 이동), 폼 미구현
+
+■ 확정 — 사령관 지시 2026-06-24 (8차) — 통계/히어로 3슬라이드/이미지 슬롯 배선
+- H2 스탯 4종 수정:
+  · stat1 카운트업 0→25 "년+" (data-target 3→25), 라벨 "축적된 시장 데이터 분석 노하우" 유지 — 확정(사령관 지시 2026-06-24)
+  · stat2 숫자카운터 제거 → .stat__word "다양한"(골드), 라벨 "주식·ETF·가상자산·해외주식 등 다양한 시장 분석" — 확정(사령관 지시 2026-06-24)
+  · stat3 카운트업 0→999 "+" (data-target 100→999), .stat__slot "수치 미정 슬롯" 줄 삭제(수치 확정) — 확정(사령관 지시 2026-06-24)
+  · stat4 숫자카운터 제거 → .stat__word "다양한"(흰색), 라벨 "제공 정보 카테고리 (국내·해외·가상자산·ETF·교육)" — 확정(사령관 지시 2026-06-24)
+  · NaN 방지: .stat__word는 .count 클래스 미부여 → animateCount는 .count(stat1·stat3)만 대상. "다양한"은 .fade-up reveal 등장
+- H1 히어로 3슬라이드 인스타 스토리식 전환:
+  · 배경영상 3개(hero.mp4 / hero2.mp4 / hero3.mp4) 절대배치 겹침, 활성만 opacity:1+재생(크로스페이드 .7s), 마지막→첫 슬라이드 순환 — 확정(사령관 지시 2026-06-24)
+  · 텍스트 오버레이 3벌: 슬라이드1=기존(신뢰·파트너십), 슬라이드2·3=09_히어로카피.md 그대로(MARKET ANALYSIS / INVESTOR EDUCATION) — 확정(카피 출처 09_히어로카피.md)
+  · 전환 시 활성 슬라이드 reveal(회색→흰색 차오름) 재생(.revealed 토글+reflow). 히어로 슬라이더 전용 reveal 타이밍 압축(채움 1.5s, 구절지연 .2/1.6/3.0/4.4s → 4구절째 6.0s 완료)해 8초 슬라이드 안에 충분히 노출 — 확정(사령관 지시: 각 슬라이드 약 8초)
+  · 프로그레스 바 3개(히어로 하단, 얇은 track + 골드 fill): 현재=좌→우 채움(--dur=8s linear, 슬라이드 노출 시간 동기화), 지난=가득참(is-done), 다음=빈. 바 클릭 시 해당 슬라이드 점프 — 확정(사령관 지시 2026-06-24)
+  · 영상 muted·playsinline·loop, 활성=preload auto / 나머지=preload metadata(최적화). prefers-reduced-motion 시 자동전환·크로스페이드 약화(transition none)·프로그레스 바 숨김 — 확정(기술 규칙 §13)
+  · hero2.mp4·hero3.mp4 = 사령관 직접 삽입(같은 폴더, 파일 존재 확인). 3레이어 구조([영상]→[딤]→[텍스트]) 유지 — 확정(_PROJECT.md 히어로 스펙)
+- 이미지 슬롯 배선(placeholder→실제 img):
+  · SLOT-IMG-HOME-BIZ-1~4 ← 01~04_hombiz.png (3:4 cover, hover scale 1.06 유지, 점선 placeholder 보더 제거). 매칭: 01 국내주식(한국기 차트)/02 해외주식(SP&500)/03 가상자산(BTC·ETH 폰)/04 교육·컨설팅(상담 문서) — Read로 내용 확인, 번호=패널 주제 일치 → 순서대로 배선 확정(사령관 지시 2026-06-24)
+  · SLOT-ICON-STRONG-1~4 ← ic_01~04.png (1:1, 골드 보더 박스 내 42px contain). 순서대로 배선, "아이콘 슬롯" 안내 문구 제거 — 확정(사령관 지시 2026-06-24: 순서대로)
+  · 모든 신규 img: alt(한글 패널/아이콘 주제) + loading="lazy"(히어로 영상 제외) — 확정(기술 규칙)
+- 미배선 유지: SLOT-IMG-HOME-INTRO(=logo-visual 이미 처리됨) / SLOT-IMG-HOME-INSIGHT-1~3 → 자산 없어 슬롯 그대로 유지(건드리지 않음) — 확정(사령관 지시 2026-06-24)
+- 검증: Playwright(헤드리스 Chrome 1366×900 / 390×844) 데스크톱·모바일 캡처. 히어로 3슬라이드 전환·프로그레스 바·카피 reveal 전환 / 스탯 25·다양한·999+·다양한 / biz 4패널·ic 4아이콘 실제 노출 / 모바일 수평스크롤 없음(scrollWidth==clientWidth) / 콘솔·페이지 에러 0 확인 — 확정(No-Evidence-No-Done)
+- 제안(시엘 판단): ic_0X 아이콘은 다채색 3D PNG(골드 톤 아님) — 골드 보더 박스 안에 넣어 골드 톤과 조화. 명백한 주제 어긋남 없어 사령관 지시대로 순서 배선 유지. 톤 통일 원하면 추후 골드 단색 아이콘 교체 제안
 
 ■ 확정 — 사령관 지시 2026-06-22 (7차) — ABOUT 인트로 로고 비주얼 업그레이드
 - H3 ABOUT 인트로 우측 placeholder → .logo-visual 교체: logo.png 중앙 배치, 다크+골드 라디얼/선형 그라디언트 배경, 로고 정적 골드 글로우(.lv-logo drop-shadow). 글린트 = 로고를 흰색 실루엣으로 복제(.lv-shine, filter:brightness(0) invert(1) + mix-blend:screen)하고 clip-path 대각선 띠가 5s마다 한 번 로고 글자 위를 스윽 지나감(68% 멈춤). ※ 박스 전체가 아니라 로고 글자 모양 안에서만 빛남. CSS mask는 헤드리스 환경에서 미동작 확인되어 clip-path 복제 방식 채택 — 확정(사령관 지시 2026-06-22: 글린트는 로고만 가로지를 것 / 동그라미 sparkle 제거)
