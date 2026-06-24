@@ -65,6 +65,10 @@ HOME / 회사소개 / 사업소개 / 투자정보 / 고객센터 / 문의하기
   ③ 이미지 배선: 사업영역 4패널 ← 01~04_hombiz.png / 강점 아이콘 4종 ← ic_01~04.png. INSIGHT·INTRO 슬롯은 자산 대기로 유지.
   ④ 본문 노하우 연수 **3년→25년 전역 통일**(히어로 슬라이드2 서브·강점카드 제목/본문·09 카피).
   앤 채점: 페이 통과 / 시엘 통과(데스크톱·모바일 Playwright 캡처 검증, 콘솔 0, 수평스크롤 0).
+- [2026-06-24] HOME 히어로 슬라이드 바 개선 + 서브 hero 배선 — 앤 직접(소규모 시각/배선). 커밋 `7b9fec9` 배포.
+  ① 세그먼트 바: 상단↔하단 논의 끝에 **하단 중앙 축소**(width clamp200~320, margin auto) + **흰색 5px 채움**(골드는 영상 위 대비 약해 변경) + drop-shadow + SCROLL 인디케이터 더 아래 분리. 인스타 스토리식.
+  ② 채움 버그 2건 수정: (a) 채움 시작이 `window.load`(영상 55MB 완료)에 묶여 멈춰있던 것 → 즉시 시작. (b) JS가 인라인 `width:0` 박아 CSS `width:100%` 막아 영원히 안 차오르던 것 → 인라인 0→100% 직접 구동. Playwright 캡처로 차오름 검증(2초 30%→6.5초 80%).
+  ③ 서브페이지 5종 hero 배경이미지 배선: about←about_hero / business←ourbusiness_hero / insights←insights_hero / support←support_hero / contact←contact_hero. `.subhero__bg` inline background-image + `::after` 점선 placeholder 제거. 데스크톱 캡처 5종 검증.
 - [2026-06-24] **배포 완료** — 커밋 `a25a7d8` → `jandhgroup01-ai:[TOKEN]` 으로 push (5870cf4..a25a7d8). 라이브 반영. hero2/3.mp4(70/53MB) LFS 권고 경고 있으나 100MB 미만이라 정상 push. ⚠️ jh repo push 토큰은 `jandhgroup01-ai` 계정 전용 — `memory/reference_accounts.md`에 저장(pestolab·sungeunstar 토큰은 403).
 
 ## 산출물 파일 (클라이언트 전달용 영어 파일명, 2026-06-22 정리)
