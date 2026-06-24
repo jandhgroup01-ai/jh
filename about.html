@@ -87,7 +87,7 @@ section{position:relative;}
 /* ══ 서브페이지 히어로 (배경 이미지 슬롯 + 딤 + 타이틀 reveal / 영상 아님) ══ */
 .subhero{position:relative;min-height:clamp(420px,58vh,560px);display:flex;align-items:flex-end;overflow:hidden;background:var(--black);}
 .subhero__bg{position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#161616,#242424);color:rgba(234,179,8,.4);font-family:'Pretendard';font-size:13px;letter-spacing:.08em;text-align:center;}
-.subhero__bg::after{content:"";position:absolute;inset:18px;border:1px dashed rgba(234,179,8,.2);border-radius:12px;pointer-events:none;}
+.subhero__bg::after{content:none;}
 .subhero__dim{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(13,13,13,.55) 0%,rgba(13,13,13,.45) 40%,rgba(13,13,13,.92) 100%);}
 .subhero__content{position:relative;z-index:3;width:100%;padding-bottom:clamp(48px,7vh,80px);padding-top:clamp(120px,16vh,180px);}
 .subhero .label{margin-bottom:18px;}
@@ -217,7 +217,7 @@ section{position:relative;}
 
 <!-- ══ A1 히어로 (배경 이미지 슬롯 + 딤 + 타이틀 reveal) ══ -->
 <section class="subhero">
-  <div class="subhero__bg">[ SLOT-IMG-ABOUT-HERO · 1920×720 ]</div>
+  <div class="subhero__bg" style="background-image:url('about_hero.png');background-size:cover;background-position:center;"></div>
   <div class="subhero__dim"></div>
   <div class="subhero__content wrap">
     <nav class="crumb"><a href="index.html">HOME</a><span class="sep">/</span>회사소개</nav>

@@ -241,19 +241,21 @@ section{position:relative;}
 .hero__slide{position:absolute;inset:0;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .55s ease;}
 .hero__slide.is-active{position:relative;opacity:1;visibility:visible;pointer-events:auto;}
 
-/* ── 인스타 스토리식 프로그레스 바 (히어로 하단) ── */
+/* ── 인스타 스토리식 프로그레스 바 (히어로 최상단 풀폭 세그먼트) ── */
 .hero__progress{
-  position:absolute;left:var(--pad);right:var(--pad);bottom:clamp(20px,4vh,40px);z-index:4;
-  display:flex;gap:10px;max-width:var(--maxw);margin:0 auto;
+  position:absolute;left:0;right:0;bottom:clamp(78px,10vh,96px);top:auto;z-index:5;
+  display:flex;gap:6px;
+  width:clamp(200px,26vw,320px);max-width:none;margin:0 auto;padding:0;box-sizing:border-box;
+  filter:drop-shadow(0 1px 3px rgba(0,0,0,.5));
 }
-.hero__bar{flex:1 1 0;height:3px;border-radius:999px;background:rgba(255,255,255,.22);overflow:hidden;cursor:pointer;}
-.hero__bar-fill{display:block;height:100%;width:0;background:var(--gold);border-radius:999px;}
+.hero__bar{flex:1 1 0;height:5px;border-radius:2px;background:rgba(255,255,255,.32);overflow:hidden;cursor:pointer;padding:0;border:0;}
+.hero__bar-fill{display:block;height:100%;width:0;background:#fff;border-radius:2px;}
 /* 지난 슬라이드 = 가득 채움 / 다음 슬라이드 = 빈 상태 */
 .hero__bar.is-done .hero__bar-fill{width:100%;}
 /* 현재 슬라이드 = 0→100% 채움(슬라이드 노출 시간과 동기화, JS가 --dur 주입) */
 .hero__bar.is-active .hero__bar-fill{width:100%;transition:width var(--dur,8s) linear;}
 .scroll-ind{
-  position:absolute;left:50%;bottom:28px;transform:translateX(-50%);z-index:3;
+  position:absolute;left:50%;bottom:clamp(12px,2.2vh,18px);transform:translateX(-50%);z-index:3;
   display:flex;flex-direction:column;align-items:center;gap:8px;
   font-family:'Pretendard';font-size:11px;letter-spacing:.25em;color:rgba(255,255,255,.6);
 }
@@ -1089,11 +1091,12 @@ section{position:relative;}
         var fill=b.querySelector('.hero__bar-fill');
         if(k<i){ b.classList.add('is-done'); }
         else if(k===i){
-          // 채움 리셋 후 노출 시간만큼 0→100%
+          // 채움 리셋 후 노출 시간만큼 0→100% (인라인 width로 직접 구동 — class의 width:100%가 인라인 0에 막히지 않게)
           fill.style.transition='none'; fill.style.width='0';
-          b.style.setProperty('--dur',(SLIDE_MS/1000)+'s');
           void fill.offsetWidth;
-          fill.style.transition=''; b.classList.add('is-active');
+          fill.style.transition='width '+(SLIDE_MS/1000)+'s linear';
+          fill.style.width='100%';
+          b.classList.add('is-active');
         }else{
           fill.style.transition='none'; fill.style.width='0'; void fill.offsetWidth; fill.style.transition='';
         }
@@ -1108,11 +1111,10 @@ section{position:relative;}
       b.addEventListener('click',function(){ var t=parseInt(b.getAttribute('data-slide'),10)||0; show(t); schedule(); });
     });
 
-    window.addEventListener('load',function(){
-      videos.forEach(function(v){ if(v.classList.contains('is-active'))playVideo(v); });
-      show(0,true);
-      schedule();
-    });
+    // 영상(수십 MB)의 load 이벤트를 기다리지 않고 즉시 시작 — 첫 슬라이드 바 채움·reveal 바로 진행
+    videos.forEach(function(v){ if(v.classList.contains('is-active'))playVideo(v); });
+    show(0,true);
+    schedule();
   })();
 
   // ── 숫자 카운트업 ──
