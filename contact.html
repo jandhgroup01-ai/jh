@@ -103,7 +103,7 @@ section{position:relative;}
 .kakao-map{position:relative;border-radius:16px;overflow:hidden;border:1px solid rgba(202,161,6,.32);background:#e9e5dc;}
 .kakao-map__fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px;text-align:center;color:#5b4a20;background:linear-gradient(135deg,#ede8dc,#f6f1e8);}
 .kakao-map__fallback strong{font-family:'Pretendard';font-size:18px;color:#2a2418;}
-.kakao-map__fallback a{font-family:'Pretendard';font-weight:700;color:#8a6b00;text-decoration:underline;text-underline-offset:4px;}
+.kakao-map__fallback span{font-family:'Pretendard';font-size:14px;font-weight:700;color:#8a6b00;}
 /* 푸터 */
 .footer{background:var(--black);color:rgba(255,255,255,.7);padding:clamp(60px,8vh,90px) 0 40px;border-top:1px solid var(--line-dark);}
 .footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px;padding-bottom:48px;border-bottom:1px solid var(--line-dark);}
@@ -222,7 +222,7 @@ section{position:relative;}
     <div class="map-slot kakao-map fade-up" id="contactKakaoMap" data-map-title="J&H그룹" data-map-address="서울특별시 성동구 성수일로8길 5 서울숲 SKV1타워 제A동 611호">
       <div class="kakao-map__fallback">
         <strong>서울숲 SKV1타워 제A동 611호</strong>
-        <a href="https://map.kakao.com/link/search/서울특별시 성동구 성수일로8길 5 서울숲 SKV1타워 제A동 611호" target="_blank" rel="noopener">카카오맵에서 보기</a>
+        <span>지도 로딩 중</span>
       </div>
     </div>
   </div>
@@ -252,7 +252,7 @@ section{position:relative;}
   <button class="float-top" id="floatTop" aria-label="맨 위로" type="button">↑</button>
 </div>
 
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a4c9afcb3965a96a9f1bd9af9afa20b5&libraries=services"></script>
+<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=a4c9afcb3965a96a9f1bd9af9afa20b5&libraries=services&autoload=false"></script>
 <script>
 (function(){
   'use strict';
@@ -268,8 +268,12 @@ section{position:relative;}
   window.addEventListener('load',function(){
     var hr=document.querySelector('.subhero .reveal-data');if(hr){setTimeout(function(){hr.classList.add('revealed');},300);}
     document.querySelectorAll('.subhero .fade-up').forEach(function(el,i){setTimeout(function(){el.classList.add('in');},250+i*120);});
-    initJhKakaoMap('contactKakaoMap');
+    loadJhKakaoMap('contactKakaoMap');
   });
+  function loadJhKakaoMap(targetId){
+    if(!window.kakao||!kakao.maps||!kakao.maps.load)return;
+    kakao.maps.load(function(){initJhKakaoMap(targetId);});
+  }
   function initJhKakaoMap(targetId){
     var el=document.getElementById(targetId);
     if(!el||!window.kakao||!kakao.maps||!kakao.maps.services)return;
