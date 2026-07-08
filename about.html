@@ -414,6 +414,41 @@ section{position:relative;}
 <script>
 (function(){
   'use strict';
+  function setMapStatus(message){
+    var state=document.querySelector('#aboutKakaoMap .kakao-map__fallback span');
+    if(state){state.textContent=message;}
+  }
+  function bootKakaoMap(attempt){
+    attempt=attempt||0;
+    var el=document.getElementById('aboutKakaoMap');
+    if(!el)return;
+    if(!window.kakao||!kakao.maps||!kakao.maps.Map){
+      if(attempt<40){setTimeout(function(){bootKakaoMap(attempt+1);},120);return;}
+      setMapStatus('JavaScript 키 또는 도메인 확인 필요');
+      return;
+    }
+    try{
+      var title=el.getAttribute('data-map-title')||'J&H그룹';
+      var lat=parseFloat(el.getAttribute('data-map-lat'))||37.54639;
+      var lng=parseFloat(el.getAttribute('data-map-lng'))||127.05102;
+      var coords=new kakao.maps.LatLng(lat,lng);
+      el.innerHTML='';
+      var map=new kakao.maps.Map(el,{center:coords,level:3});
+      var marker=new kakao.maps.Marker({map:map,position:coords,title:title});
+      new kakao.maps.InfoWindow({content:'<div style="padding:8px 12px;font-size:13px;font-weight:700;color:#1a1a1a;white-space:nowrap;">'+title+'</div>'}).open(map,marker);
+      if(kakao.maps.ZoomControl&&kakao.maps.ControlPosition){map.addControl(new kakao.maps.ZoomControl(),kakao.maps.ControlPosition.RIGHT);}
+      setTimeout(function(){map.relayout();map.setCenter(coords);},160);
+    }catch(error){
+      console.error('J&H Kakao map error:',error);
+      setMapStatus('카카오 지도 설정 확인 필요');
+    }
+  }
+  bootKakaoMap();
+})();
+</script>
+<script>
+(function(){
+  'use strict';
   var header=document.getElementById('header'),floatTop=document.getElementById('floatTop');
   function onScroll(){var y=window.pageYOffset;if(y>40){header.classList.add('scrolled');}else{header.classList.remove('scrolled');}if(y>600){floatTop.classList.add('show');}else{floatTop.classList.remove('show');}}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
@@ -428,22 +463,6 @@ section{position:relative;}
     var hr=document.querySelector('.subhero .reveal-data');if(hr){setTimeout(function(){hr.classList.add('revealed');},300);}
     document.querySelectorAll('.subhero .fade-up').forEach(function(el,i){setTimeout(function(){el.classList.add('in');},250+i*120);});
   });
-  function initJhKakaoMap(targetId){
-    var el=document.getElementById(targetId);
-    if(!el||!window.kakao||!kakao.maps||!kakao.maps.Map)return;
-    var title=el.getAttribute('data-map-title')||'J&H그룹';
-    var lat=parseFloat(el.getAttribute('data-map-lat'))||37.54639;
-    var lng=parseFloat(el.getAttribute('data-map-lng'))||127.05102;
-    el.innerHTML='';
-    var coords=new kakao.maps.LatLng(lat,lng);
-    var map=new kakao.maps.Map(el,{center:coords,level:3,mapTypeId:kakao.maps.MapTypeId.ROADMAP});
-    var marker=new kakao.maps.Marker({map:map,position:coords,title:title});
-    var info=new kakao.maps.InfoWindow({content:'<div style="padding:8px 12px;font-size:13px;font-weight:700;color:#1a1a1a;white-space:nowrap;">'+title+'</div>'});
-    info.open(map,marker);
-    map.addControl(new kakao.maps.ZoomControl(),kakao.maps.ControlPosition.RIGHT);
-    setTimeout(function(){map.relayout();map.setCenter(coords);},120);
-  }
-  initJhKakaoMap('aboutKakaoMap');
 })();
 </script>
 
