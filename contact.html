@@ -252,7 +252,7 @@ section{position:relative;}
   <button class="float-top" id="floatTop" aria-label="맨 위로" type="button">↑</button>
 </div>
 
-<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=a4c9afcb3965a96a9f1bd9af9afa20b5&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a4c9afcb3965a96a9f1bd9af9afa20b5"></script>
 <script>
 (function(){
   'use strict';
@@ -268,49 +268,23 @@ section{position:relative;}
   window.addEventListener('load',function(){
     var hr=document.querySelector('.subhero .reveal-data');if(hr){setTimeout(function(){hr.classList.add('revealed');},300);}
     document.querySelectorAll('.subhero .fade-up').forEach(function(el,i){setTimeout(function(){el.classList.add('in');},250+i*120);});
-    loadJhKakaoMap('contactKakaoMap');
   });
-  function loadJhKakaoMap(targetId,attempt){
-    attempt=attempt||0;
-    if(window.kakao&&kakao.maps&&kakao.maps.Map){
-      initJhKakaoMap(targetId);
-      return;
-    }
-    if(attempt<30){
-      setTimeout(function(){loadJhKakaoMap(targetId,attempt+1);},150);
-      return;
-    }
-    var el=document.getElementById(targetId);
-    if(el){
-      var state=el.querySelector('.kakao-map__fallback span');
-      if(state){state.textContent='지도 스크립트 확인 필요';}
-    }
-  }
   function initJhKakaoMap(targetId){
     var el=document.getElementById(targetId);
-    if(!el||!window.kakao||!kakao.maps)return;
+    if(!el||!window.kakao||!kakao.maps||!kakao.maps.Map)return;
     var title=el.getAttribute('data-map-title')||'J&H그룹';
-    var address=el.getAttribute('data-map-address')||'서울특별시 성동구 성수일로8길 5 서울숲 SKV1타워 제A동 611호';
     var lat=parseFloat(el.getAttribute('data-map-lat'))||37.54639;
     var lng=parseFloat(el.getAttribute('data-map-lng'))||127.05102;
     el.innerHTML='';
     var coords=new kakao.maps.LatLng(lat,lng);
-    var map=new kakao.maps.Map(el,{center:coords,level:3});
+    var map=new kakao.maps.Map(el,{center:coords,level:3,mapTypeId:kakao.maps.MapTypeId.ROADMAP});
     var marker=new kakao.maps.Marker({map:map,position:coords,title:title});
     var info=new kakao.maps.InfoWindow({content:'<div style="padding:8px 12px;font-size:13px;font-weight:700;color:#1a1a1a;white-space:nowrap;">'+title+'</div>'});
     info.open(map,marker);
+    map.addControl(new kakao.maps.ZoomControl(),kakao.maps.ControlPosition.RIGHT);
     setTimeout(function(){map.relayout();map.setCenter(coords);},120);
-    if(kakao.maps.services){
-      var geocoder=new kakao.maps.services.Geocoder();
-      geocoder.addressSearch(address,function(result,status){
-        if(status!==kakao.maps.services.Status.OK||!result[0])return;
-        var refined=new kakao.maps.LatLng(result[0].y,result[0].x);
-        map.setCenter(refined);
-        marker.setPosition(refined);
-        setTimeout(function(){map.relayout();map.setCenter(refined);},120);
-      });
-    }
   }
+  initJhKakaoMap('contactKakaoMap');
   // ── C2 문의 폼 (mailto 문의 양식) ──
   var form=document.getElementById('cform'),note=document.getElementById('formNote');
   form.addEventListener('submit',function(e){
