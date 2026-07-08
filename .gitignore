@@ -9,3 +9,5 @@ materials/
 _shot*.png
 blogref.png
 *.tmp
+
+.vercel
