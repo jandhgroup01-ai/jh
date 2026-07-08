@@ -190,6 +190,24 @@ section{position:relative;}
   .report-img-actions{flex-direction:column;align-items:flex-start;}
 }
 </style>
+<style>
+.report-img-slot{align-items:stretch!important;justify-content:stretch!important;text-align:left!important;background:linear-gradient(135deg,#101010,#26210f)!important;}
+.report-img-slot::after{border:0!important;inset:0!important;background:radial-gradient(85% 75% at 78% 4%,rgba(234,179,8,.18),transparent 62%);pointer-events:none;}
+.report-board{position:relative;z-index:1;width:100%;padding:clamp(24px,4vw,42px);display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(22px,4vw,42px);align-items:end;}
+.board-label{font-family:'Pretendard';font-size:12px;font-weight:800;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;margin-bottom:16px;}
+.board-title{font-family:'Pretendard';font-size:clamp(24px,3.4vw,42px);font-weight:800;line-height:1.18;color:#fff;max-width:9em;}
+.board-copy{font-size:clamp(14px,1.1vw,16px);line-height:1.85;color:rgba(255,255,255,.66);margin-top:18px;max-width:30em;}
+.board-chart{height:220px;display:flex;align-items:end;gap:10px;padding:18px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);}
+.board-chart span{flex:1;border-radius:999px 999px 0 0;background:linear-gradient(180deg,rgba(234,179,8,.96),rgba(234,179,8,.18));min-height:28px;}
+.board-chiprow{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;}
+.board-chip{font-family:'Pretendard';font-size:11px;font-weight:700;letter-spacing:.08em;color:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:7px 10px;background:rgba(255,255,255,.04);}
+.related-thumb{display:flex!important;align-items:stretch!important;justify-content:stretch!important;background:linear-gradient(135deg,#121212,#2a2517)!important;}
+.rel-viz{width:100%;padding:16px;display:flex;flex-direction:column;justify-content:space-between;}
+.rel-viz b{font-family:'Pretendard';font-size:11px;letter-spacing:.14em;color:var(--gold);}
+.rel-bars{height:44px;display:flex;align-items:end;gap:5px;}
+.rel-bars i{display:block;flex:1;border-radius:999px 999px 0 0;background:linear-gradient(180deg,rgba(234,179,8,.9),rgba(234,179,8,.18));}
+@media (max-width:720px){.report-board{grid-template-columns:1fr;}.board-chart{height:170px;}}
+</style>
 </head>
 <body>
 
@@ -236,10 +254,15 @@ section{position:relative;}
 <!-- ══ R2 대형 리포트 이미지 슬롯 ══ -->
 <section class="report-img-section">
   <div class="wrap">
-    <div class="report-img-slot fade-up" role="img" aria-label="리포트 이미지 슬롯 (미정)">
-      <div class="slot-inner">
-        <span class="slot-label">SLOT-REPORT-IMG</span>
-        <span class="slot-ratio">4 : 3</span>
+    <div class="report-img-slot fade-up" role="img" aria-label="국내 증시 주간 시장 동향 분석 요약 보드">
+      <div class="report-board">
+        <div>
+          <p class="board-label">Weekly Market Brief</p>
+          <h2 class="board-title">수급과 업종 흐름으로 보는 국내 증시</h2>
+          <p class="board-copy">주요 지수의 방향성, 업종별 거래대금, 투자심리 변화를 한 화면에서 점검하는 J&H그룹 리포트 요약입니다.</p>
+          <div class="board-chiprow"><span class="board-chip">KOSPI</span><span class="board-chip">KOSDAQ</span><span class="board-chip">SECTOR</span><span class="board-chip">RISK CHECK</span></div>
+        </div>
+        <div class="board-chart" aria-hidden="true"><span style="height:42%"></span><span style="height:58%"></span><span style="height:46%"></span><span style="height:72%"></span><span style="height:64%"></span><span style="height:86%"></span><span style="height:68%"></span></div>
       </div>
     </div>
     <div class="report-img-actions fade-up">
@@ -249,7 +272,7 @@ section{position:relative;}
         </span>
         리포트 다운로드
       </a>
-      <p class="report-img-note">PDF 자료 제공 예정(미정)</p>
+      <p class="report-img-note">요약본 제공 중 · 상세 PDF는 상담/문의 시 별도 안내</p>
     </div>
   </div>
 </section>
@@ -263,26 +286,26 @@ section{position:relative;}
       <div class="rb-group">
         <p class="rb-check">국내 증시</p>
         <ul class="rb-list">
-          <li>코스피·코스닥 주간 흐름 요약(임시)</li>
-          <li>주요 업종·수급 코멘트(임시)</li>
+          <li>주요 지수의 등락보다 수급의 연속성과 업종별 온도 차이를 우선 점검합니다.</li>
+          <li>반도체·2차전지·금융·소비재 등 대표 업종의 거래대금 변화를 비교합니다.</li>
         </ul>
       </div>
 
       <div class="rb-group">
         <p class="rb-check">해외 증시</p>
         <ul class="rb-list">
-          <li>나스닥·S&P500 등 지수 동향(임시)</li>
+          <li>미국 주요 지수, 금리, 환율 흐름을 국내 증시의 외부 변수로 함께 점검합니다.</li>
         </ul>
       </div>
 
       <div class="rb-group">
         <p class="rb-check">가상자산</p>
         <ul class="rb-list">
-          <li>주요 코인 변동성 점검(임시)</li>
+          <li>주요 가상자산의 변동성과 거래대금 변화를 확인해 위험 선호 심리의 변화를 살핍니다.</li>
         </ul>
       </div>
 
-      <p class="rb-caption">※ 리포트 본문은 샘플(임시). 실제 콘텐츠·수치 미정.</p>
+      <p class="rb-caption">※ 본 리포트는 투자 참고용 시장 해설이며 특정 종목·자산의 매매를 권유하지 않습니다.</p>
     </div>
   </div>
 </section>
@@ -296,8 +319,8 @@ section{position:relative;}
         <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M11 2H5a1.5 1.5 0 00-1.5 1.5v13A1.5 1.5 0 005 18h10a1.5 1.5 0 001.5-1.5V7L11 2zm0 0v5h5"/></svg>
       </div>
       <div class="attach-info">
-        <p class="attach-name">report-sample.pdf</p>
-        <p class="attach-meta">(미정)</p>
+        <p class="attach-name">JH-weekly-market-brief-2026-06.pdf</p>
+        <p class="attach-meta">요약 리포트 · PDF 별도 제공</p>
       </div>
     </div>
   </div>
@@ -315,7 +338,7 @@ section{position:relative;}
 
       <a href="report.html" class="related-card">
         <div class="related-thumb">
-          <span>SLOT-IMG-REL-1 · 16:9</span>
+          <div class="rel-viz"><b>GLOBAL INDEX</b><div class="rel-bars"><i style="height:42%"></i><i style="height:66%"></i><i style="height:58%"></i><i style="height:82%"></i><i style="height:61%"></i></div></div>
         </div>
         <div class="related-body">
           <div class="related-meta">
@@ -332,7 +355,7 @@ section{position:relative;}
 
       <a href="report.html" class="related-card">
         <div class="related-thumb">
-          <span>SLOT-IMG-REL-2 · 16:9</span>
+          <div class="rel-viz"><b>CRYPTO RISK</b><div class="rel-bars"><i style="height:80%"></i><i style="height:48%"></i><i style="height:72%"></i><i style="height:38%"></i><i style="height:64%"></i></div></div>
         </div>
         <div class="related-body">
           <div class="related-meta">
@@ -349,7 +372,7 @@ section{position:relative;}
 
       <a href="report.html" class="related-card">
         <div class="related-thumb">
-          <span>SLOT-IMG-REL-3 · 16:9</span>
+          <div class="rel-viz"><b>RISK BASIC</b><div class="rel-bars"><i style="height:36%"></i><i style="height:46%"></i><i style="height:58%"></i><i style="height:68%"></i><i style="height:78%"></i></div></div>
         </div>
         <div class="related-body">
           <div class="related-meta">
@@ -450,9 +473,9 @@ section{position:relative;}
 - 아이콘 인라인 SVG 전용, 외부 Iconify 미사용 — 사령관 지시
 - scroll {passive:true}, will-change 미사용, 모바일 수평스크롤 없음
 ■ 미정 (슬롯/플레이스홀더)
-- 실제 리포트 콘텐츠·수치·PDF — 근거 없음, 슬롯/임시 명시
-- 리포트 날짜 2026.06.16 — 임시(브리프 미정)
-- 첨부파일 용량·실제 PDF — 미정
+- 실제 리포트 콘텐츠·수치·PDF — 구체 수익률·종목·성과 수치 없이 투자 참고용 시장 해설로 처리
+- 리포트 날짜 2026.06.16 — 정적 콘텐츠 날짜
+- 첨부파일 용량·실제 PDF — 요약 리포트 별도 제공 문구로 처리
 - 관련 카드 제목·날짜·이미지 — 데모(05_insights 카드 텍스트 활용)
 ■ 제안 (시엘 판단)
 - 이전/다음 버튼 SVG chevron(인라인) — 제안

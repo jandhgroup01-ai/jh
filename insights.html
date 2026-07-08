@@ -123,6 +123,17 @@ section{position:relative;}
 }
 @media (max-width:560px){.report-grid{grid-template-columns:1fr;}.footer-top{grid-template-columns:1fr;}}
 </style>
+<style>
+.report-thumb{background:linear-gradient(135deg,#111,#2b2719)!important;border-color:rgba(234,179,8,.22)!important;align-items:stretch!important;justify-content:stretch!important;color:var(--gold-soft)!important;text-align:left!important;}
+.report-thumb::after{inset:0!important;border:0!important;border-radius:0!important;background:radial-gradient(80% 90% at 82% 0%,rgba(234,179,8,.18),transparent 60%);pointer-events:none;}
+.report-viz{position:relative;z-index:1;width:100%;padding:16px;display:flex;flex-direction:column;justify-content:space-between;}
+.rv-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;}
+.rv-k{font-family:'Pretendard';font-size:10px;font-weight:800;letter-spacing:.16em;color:rgba(234,179,8,.86);}
+.rv-date{font-family:'Pretendard';font-size:10px;color:rgba(255,255,255,.42);letter-spacing:.08em;}
+.rv-title{font-family:'Pretendard';font-size:clamp(14px,1.15vw,17px);font-weight:700;line-height:1.42;color:#fff;max-width:13em;}
+.rv-chart{height:50px;display:flex;align-items:end;gap:5px;margin-top:14px;}
+.rv-chart span{flex:1;border-radius:999px 999px 0 0;background:linear-gradient(180deg,rgba(234,179,8,.95),rgba(234,179,8,.2));min-height:14px;}
+</style>
 </head>
 <body>
 
@@ -167,58 +178,58 @@ section{position:relative;}
       <button class="tab" data-filter="edu" role="tab" aria-selected="false">교육</button>
     </div>
 
-    <!-- I3 리포트 카드 리스트 (정적 6개, 제목 미정→임시) -->
+    <!-- I3 리포트 카드 리스트 (정적 6개) -->
     <div class="report-grid stagger" id="reportGrid">
       <article class="report-card" data-cat="domestic">
         <a href="report.html" style="display:block;color:inherit;">
-        <div class="report-thumb">[ SLOT-IMG-INSIGHT-CARD-1 · 16:9 ]</div>
+        <div class="report-thumb"><div class="report-viz"><div class="rv-top"><span class="rv-k">DOMESTIC</span><span class="rv-date">WEEKLY</span></div><p class="rv-title">국내 증시 수급·업종 순환 점검</p><div class="rv-chart"><span style="height:34%"></span><span style="height:58%"></span><span style="height:46%"></span><span style="height:72%"></span><span style="height:63%"></span><span style="height:84%"></span></div></div></div>
         <div class="report-meta"><span class="cat">국내주식</span><span class="date">2026.06</span></div>
         <h3>국내 증시 주간 시장 동향 분석 리포트</h3>
-        <p class="excerpt">※ 콘텐츠 제목·내용 미정 — 임시. 실제 리포트 연동 예정.</p>
+        <p class="excerpt">코스피·코스닥 흐름과 업종별 거래대금 변화를 함께 확인해 단기 체크 포인트를 정리합니다.</p>
         </a>
       </article>
       <article class="report-card" data-cat="global">
         <a href="report.html" style="display:block;color:inherit;">
-        <div class="report-thumb">[ SLOT-IMG-INSIGHT-CARD-2 · 16:9 ]</div>
+        <div class="report-thumb"><div class="report-viz"><div class="rv-top"><span class="rv-k">GLOBAL</span><span class="rv-date">INDEX</span></div><p class="rv-title">미국 지수와 금리 변수 브리핑</p><div class="rv-chart"><span style="height:45%"></span><span style="height:54%"></span><span style="height:61%"></span><span style="height:78%"></span><span style="height:52%"></span><span style="height:70%"></span></div></div></div>
         <div class="report-meta"><span class="cat">해외주식</span><span class="date">2026.06</span></div>
         <h3>해외 주요 지수 흐름과 투자 포인트</h3>
-        <p class="excerpt">※ 콘텐츠 제목·내용 미정 — 임시. 실제 리포트 연동 예정.</p>
+        <p class="excerpt">미국 주요 지수, 금리, 환율 변수를 연결해 해외주식 접근 시 확인할 관점을 제시합니다.</p>
         </a>
       </article>
       <article class="report-card" data-cat="crypto">
         <a href="report.html" style="display:block;color:inherit;">
-        <div class="report-thumb">[ SLOT-IMG-INSIGHT-CARD-3 · 16:9 ]</div>
+        <div class="report-thumb"><div class="report-viz"><div class="rv-top"><span class="rv-k">CRYPTO</span><span class="rv-date">RISK</span></div><p class="rv-title">가상자산 변동성 레벨 체크</p><div class="rv-chart"><span style="height:82%"></span><span style="height:48%"></span><span style="height:68%"></span><span style="height:38%"></span><span style="height:76%"></span><span style="height:56%"></span></div></div></div>
         <div class="report-meta"><span class="cat">가상자산</span><span class="date">2026.06</span></div>
         <h3>가상자산 시장 변동성 점검 및 분석</h3>
-        <p class="excerpt">※ 콘텐츠 제목·내용 미정 — 임시. 실제 리포트 연동 예정.</p>
+        <p class="excerpt">주요 자산의 거래량과 변동성 구간을 살펴 과열·조정 신호를 균형 있게 점검합니다.</p>
         </a>
       </article>
       <article class="report-card" data-cat="edu">
         <a href="report.html" style="display:block;color:inherit;">
-        <div class="report-thumb">[ SLOT-IMG-INSIGHT-CARD-4 · 16:9 ]</div>
+        <div class="report-thumb"><div class="report-viz"><div class="rv-top"><span class="rv-k">EDUCATION</span><span class="rv-date">BASIC</span></div><p class="rv-title">초보 투자자를 위한 리스크 관리</p><div class="rv-chart"><span style="height:36%"></span><span style="height:44%"></span><span style="height:50%"></span><span style="height:58%"></span><span style="height:66%"></span><span style="height:74%"></span></div></div></div>
         <div class="report-meta"><span class="cat">교육</span><span class="date">2026.05</span></div>
         <h3>초보 투자자를 위한 리스크 관리 기초</h3>
-        <p class="excerpt">※ 콘텐츠 제목·내용 미정 — 임시. 실제 콘텐츠 연동 예정.</p>
+        <p class="excerpt">분산, 손절 기준, 투자 비중 관리처럼 초보 투자자가 먼저 익혀야 할 기본 원칙을 정리합니다.</p>
         </a>
       </article>
       <article class="report-card" data-cat="domestic">
         <a href="report.html" style="display:block;color:inherit;">
-        <div class="report-thumb">[ SLOT-IMG-INSIGHT-CARD-5 · 16:9 ]</div>
+        <div class="report-thumb"><div class="report-viz"><div class="rv-top"><span class="rv-k">SECTOR</span><span class="rv-date">DATA</span></div><p class="rv-title">업종별 시장 데이터 맵</p><div class="rv-chart"><span style="height:52%"></span><span style="height:68%"></span><span style="height:42%"></span><span style="height:74%"></span><span style="height:58%"></span><span style="height:64%"></span></div></div></div>
         <div class="report-meta"><span class="cat">국내주식</span><span class="date">2026.05</span></div>
         <h3>국내 업종별 시장 데이터 분석</h3>
-        <p class="excerpt">※ 콘텐츠 제목·내용 미정 — 임시. 실제 리포트 연동 예정.</p>
+        <p class="excerpt">반도체, 2차전지, 금융, 소비재 등 주요 업종의 흐름을 비교해 시장 색깔을 파악합니다.</p>
         </a>
       </article>
       <article class="report-card" data-cat="crypto">
         <a href="report.html" style="display:block;color:inherit;">
-        <div class="report-thumb">[ SLOT-IMG-INSIGHT-CARD-6 · 16:9 ]</div>
+        <div class="report-thumb"><div class="report-viz"><div class="rv-top"><span class="rv-k">DIGITAL</span><span class="rv-date">MARKET</span></div><p class="rv-title">주요 가상자산 데이터 요약</p><div class="rv-chart"><span style="height:74%"></span><span style="height:66%"></span><span style="height:44%"></span><span style="height:62%"></span><span style="height:58%"></span><span style="height:80%"></span></div></div></div>
         <div class="report-meta"><span class="cat">가상자산</span><span class="date">2026.05</span></div>
         <h3>주요 가상자산 시장 데이터 정리</h3>
-        <p class="excerpt">※ 콘텐츠 제목·내용 미정 — 임시. 실제 리포트 연동 예정.</p>
+        <p class="excerpt">비트코인·이더리움 중심의 시장 흐름과 거래대금 변화를 투자 참고 관점에서 정리합니다.</p>
         </a>
       </article>
     </div>
-    <p class="t-cap" style="color:#aaa;margin-top:28px;">※ 리포트 목록은 정적 샘플(6개)입니다. 실제 콘텐츠/CMS 연동 여부는 미정.</p>
+    <p class="t-cap" style="color:#aaa;margin-top:28px;">※ 모든 정보는 투자 참고용이며 특정 종목·자산의 매매를 권유하지 않습니다.</p>
   </div>
 </section>
 
@@ -286,8 +297,8 @@ section{position:relative;}
 - 연락처/주소/사업자번호 — _brief.md L83~86
 - 서브 히어로 = 영상 아님(SLOT-IMG-INSIGHT-HERO 1920×720 + 딤 + 타이틀 reveal)
 ■ 미정 (슬롯/플레이스홀더)
-- I3 리포트 제목·날짜·내용 → "콘텐츠 제목·내용 미정 — 임시" 명시. 썸네일 SLOT-IMG-INSIGHT-CARD-1~6(16:9)
-- 정적 vs 동적(CMS) → "연동 여부 미정" 캡션 명시
+- I3 리포트 제목·날짜·내용 → 정적 샘플 6개를 고객용 시장 브리프 문구로 정리. 썸네일은 CSS 기반 리포트 비주얼로 대체
+- 정적 vs 동적(CMS) → 화면에는 노출하지 않고, 투자 참고용 고지만 유지
 - I1 히어로 SLOT-IMG-INSIGHT-HERO
 ■ 제안 (시엘 판단)
 - I2 탭 = data-filter JS 실제 필터 동작 구현(전체/국내/해외/가상자산/교육) — 제안

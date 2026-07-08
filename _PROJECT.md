@@ -1,6 +1,6 @@
 # JH — J&H그룹
 
-**상태:** HOME 업데이트(통계+히어로 3슬라이드+이미지 배선) 배포 완료 → 라이브 반영
+**상태:** HOME(히어로 세그먼트바·통계·이미지) + 회사소개(로고효과) + 사업소개(영상·프로세스) 배포 완료 → 라이브 운영
 **한 줄 요약:** J&H그룹(2023, 투자정보제공) 멀티페이지 기업 홈페이지 — base 트랙
 **마지막 업데이트:** 2026-06-24
 
@@ -70,6 +70,14 @@ HOME / 회사소개 / 사업소개 / 투자정보 / 고객센터 / 문의하기
   ② 채움 버그 2건 수정: (a) 채움 시작이 `window.load`(영상 55MB 완료)에 묶여 멈춰있던 것 → 즉시 시작. (b) JS가 인라인 `width:0` 박아 CSS `width:100%` 막아 영원히 안 차오르던 것 → 인라인 0→100% 직접 구동. Playwright 캡처로 차오름 검증(2초 30%→6.5초 80%).
   ③ 서브페이지 5종 hero 배경이미지 배선: about←about_hero / business←ourbusiness_hero / insights←insights_hero / support←support_hero / contact←contact_hero. `.subhero__bg` inline background-image + `::after` 점선 placeholder 제거. 데스크톱 캡처 5종 검증.
 - [2026-06-24] **배포 완료** — 커밋 `a25a7d8` → `jandhgroup01-ai:[TOKEN]` 으로 push (5870cf4..a25a7d8). 라이브 반영. hero2/3.mp4(70/53MB) LFS 권고 경고 있으나 100MB 미만이라 정상 push. ⚠️ jh repo push 토큰은 `jandhgroup01-ai` 계정 전용 — `memory/reference_accounts.md`에 저장(pestolab·sungeunstar 토큰은 403).
+- [2026-06-24] HOME 히어로 2번 배경영상 hero2.mp4 교체 배포 (`b0403fd`).
+- [2026-06-24] 회사소개 대표/회사 비주얼 — HOME 인트로 로고 효과(`.logo-visual` 골드 그라디언트 박스 + 로고 + 골드 글로우 + 5초 주기 `lv-shine` 글린트) 동일 이식. CEO placeholder → 로고+shine 2장 구조. 커밋 `ec30a33`. Playwright 캡처 검증.
+- [2026-06-24] 사업소개 대규모 수정 — 앤 직접. 커밋 `3aaa3eb` + `44304d4`.
+  ① B3 5개 사업영역 placeholder → 영상 `SLOT-IMG-BIZ-1~5.mp4`(autoplay/muted/loop/playsinline, 4:3 cover, 전부 4K 3840×2160·9~15초).
+  ② B4 프로세스 아이콘 `[IC]` → 이모지(시장분석 📊 / 정보제공 📑 / 투자교육 🎓, ps-ic 폰트 28px·점선→실선).
+  ③ B4 단계 화살표 텍스트 "→" → **SVG 라인 화살표**(사령관 "짜친다" 지적 반영).
+  ④ "아이콘 슬롯 SLOT-ICON-PROC" 안내 문구 제거.
+  ⑤ ★영상 autoplay만으론 화면 밖에서 정지(paused)되던 것 → **IntersectionObserver**로 뷰포트 진입 시 `play()`/벗어나면 `pause()`, loop 반복 보장. Playwright로 duration·paused·currentTime 검증.
 
 ## 산출물 파일 (클라이언트 전달용 영어 파일명, 2026-06-22 정리)
 | 파일 | 페이지 |
@@ -83,6 +91,8 @@ HOME / 회사소개 / 사업소개 / 투자정보 / 고객센터 / 문의하기
 | report.html | 투자정보 리포트 상세 (insights에서 진입) |
 | 01_와이어프레임.html | (내부) 기획 와이어프레임 |
 
+- [2026-07-08] 빈 콘텐츠 영역 러프 채움 — 앤 직접. 지도 영역은 실제 연동 예정이라 유지. HOME/투자정보/리포트 상세의 이미지 슬롯을 CSS 기반 시장 브리프 비주얼로 대체, 투자정보 카드 6개 설명문 정리, 리포트 본문·첨부 문구 고객용으로 정리, 회사소개 연혁 2024~2025·고객센터 공지/FAQ/운영시간·문의폼 안내 문구 보강. 수익보장·종목추천·성과수치 단정 없이 투자 참고용 톤 유지. `git diff --check` 통과.
+
 ## 다음 할 일
 - [ ] **MVP 스코프 확정 ★컨펌 게이트★** (base 파이프라인 시작 조건)
 - [ ] 디자인 레퍼런스 확보 → /ref 분석 + 컨펌
@@ -94,3 +104,7 @@ HOME / 회사소개 / 사업소개 / 투자정보 / 고객센터 / 문의하기
 ## 이슈 / 메모
 - 미정 항목: 톤·컬러·로고·도메인·연락처·문의폼 백엔드·투자정보 동적여부 (brief 참고)
 - ⚠️ 금융/투자 업종 — 과장·수익보장 표현 주의 (광고 규제). 카피 단계에서 검토 필요.
+- ⚠️ 영상 자산 누적: repo에 mp4 다수(hero×3 + SLOT-IMG-BIZ×5 등 ~400MB+). 더 늘면 로딩 속도·GitHub 용량 위해 압축·외부호스팅 고려. LFS 권고 경고는 무해(개별 100MB 미만).
+- 사업소개 BIZ-4 영상(Strategy 차트, 7.6MB)이 타 영상(3D 블록 그래픽 등)과 톤 상이 — 교체 검토 대기. 같은 파일명 `SLOT-IMG-BIZ-4.mp4` 덮어쓰면 즉시 반영.
+- 잔여 슬롯(자산 대기): HOME INSIGHT-1~3·INTRO / about CEO는 로고효과로 대체됨 / about 지도(SLOT-MAP-ABOUT) / contact 지도 / report 대형이미지.
+- jh push 토큰 = `jandhgroup01-ai` 전용(ghp_GUSN…), `memory/reference_accounts.md`에 저장. 백그라운드 push 시 exit0이어도 출력 확인 필수(인증 실패가 exit0로 뜬 사례 있음).

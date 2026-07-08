@@ -606,6 +606,18 @@ section{position:relative;}
   .biz-head{flex-direction:column;align-items:flex-start;}
 }
 </style>
+<style>
+.insight-thumb{background:linear-gradient(135deg,#111,#2a2618)!important;border-color:rgba(234,179,8,.22)!important;align-items:stretch!important;justify-content:stretch!important;color:var(--gold)!important;text-align:left!important;}
+.insight-thumb::after{inset:0!important;border:0!important;border-radius:0!important;background:radial-gradient(70% 90% at 80% 0%,rgba(234,179,8,.18),transparent 60%);pointer-events:none;}
+.market-visual{position:relative;z-index:1;width:100%;padding:18px;display:flex;flex-direction:column;justify-content:space-between;}
+.mv-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;}
+.mv-k{font-family:'Pretendard';font-size:11px;font-weight:800;letter-spacing:.16em;color:rgba(234,179,8,.86);}
+.mv-date{font-family:'Pretendard';font-size:11px;color:rgba(255,255,255,.42);letter-spacing:.08em;}
+.mv-title{font-family:'Pretendard';font-size:clamp(15px,1.25vw,18px);font-weight:700;line-height:1.42;color:#fff;max-width:13em;}
+.mv-chart{height:58px;display:flex;align-items:end;gap:6px;margin-top:18px;}
+.mv-chart span{flex:1;border-radius:999px 999px 0 0;background:linear-gradient(180deg,rgba(234,179,8,.95),rgba(234,179,8,.22));min-height:16px;}
+.mv-line{position:absolute;left:16px;right:16px;bottom:62px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.24),transparent);}
+</style>
 </head>
 <body>
 
@@ -853,22 +865,22 @@ section{position:relative;}
     </div>
     <div class="insight-grid stagger">
       <article class="insight-card">
-        <div class="insight-thumb">[ SLOT-IMG-HOME-INSIGHT-1 · 16:9 ]</div>
+        <div class="insight-thumb"><div class="market-visual"><div class="mv-top"><span class="mv-k">DOMESTIC</span><span class="mv-date">WEEKLY</span></div><p class="mv-title">수급과 업종 흐름을 함께 보는 국내 증시 점검</p><div class="mv-line"></div><div class="mv-chart"><span style="height:34%"></span><span style="height:58%"></span><span style="height:46%"></span><span style="height:72%"></span><span style="height:63%"></span><span style="height:84%"></span></div></div></div>
         <div class="insight-meta"><span class="cat">국내주식</span><span class="date">2026.06</span></div>
         <h4>국내 증시 주간 시장 동향 분석 리포트</h4>
-        <p class="excerpt">※ 콘텐츠 제목 미정 — 임시. 실제 리포트 연동 예정.</p>
+        <p class="excerpt">지수 흐름, 업종 순환, 거래대금 변화를 함께 살펴 다음 주 체크 포인트를 정리합니다.</p>
       </article>
       <article class="insight-card">
-        <div class="insight-thumb">[ SLOT-IMG-HOME-INSIGHT-2 · 16:9 ]</div>
+        <div class="insight-thumb"><div class="market-visual"><div class="mv-top"><span class="mv-k">CRYPTO</span><span class="mv-date">RISK</span></div><p class="mv-title">변동성 확대 구간의 가상자산 리스크 체크</p><div class="mv-line"></div><div class="mv-chart"><span style="height:82%"></span><span style="height:48%"></span><span style="height:68%"></span><span style="height:38%"></span><span style="height:76%"></span><span style="height:56%"></span></div></div></div>
         <div class="insight-meta"><span class="cat">가상자산</span><span class="date">2026.06</span></div>
         <h4>가상자산 시장 변동성 점검 및 분석</h4>
-        <p class="excerpt">※ 콘텐츠 제목 미정 — 임시. 실제 리포트 연동 예정.</p>
+        <p class="excerpt">주요 자산의 변동성, 거래량, 심리 지표를 바탕으로 과열과 조정 신호를 점검합니다.</p>
       </article>
       <article class="insight-card">
-        <div class="insight-thumb">[ SLOT-IMG-HOME-INSIGHT-3 · 16:9 ]</div>
+        <div class="insight-thumb"><div class="market-visual"><div class="mv-top"><span class="mv-k">GLOBAL</span><span class="mv-date">INDEX</span></div><p class="mv-title">미국 주요 지수와 환율 변수가 만드는 방향성</p><div class="mv-line"></div><div class="mv-chart"><span style="height:45%"></span><span style="height:54%"></span><span style="height:61%"></span><span style="height:78%"></span><span style="height:52%"></span><span style="height:70%"></span></div></div></div>
         <div class="insight-meta"><span class="cat">해외주식</span><span class="date">2026.06</span></div>
         <h4>해외 주요 지수 흐름과 투자 포인트</h4>
-        <p class="excerpt">※ 콘텐츠 제목 미정 — 임시. 실제 리포트 연동 예정.</p>
+        <p class="excerpt">미국 주요 지수와 금리·환율 변수를 함께 확인하며 해외주식 접근 관점을 정리합니다.</p>
       </article>
     </div>
   </div>

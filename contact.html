@@ -192,7 +192,7 @@ section{position:relative;}
       <div class="frow"><label for="f-msg">문의 내용 <span class="req">*</span></label><textarea id="f-msg" name="message" placeholder="문의하실 내용을 입력해 주세요" required></textarea></div>
       <label class="agree"><input type="checkbox" id="f-agree" name="agree" required><span>개인정보 수집 및 이용에 동의합니다. (수집 항목: 이름·연락처·이메일 / 목적: 문의 응대 / 보유기간: 응대 완료 후 파기) <a href="#" onclick="return false;">자세히</a></span></label>
       <button type="submit" class="btn-submit">문의 보내기 <span>→</span></button>
-      <p class="form-note" id="formNote">※ 현재 폼 백엔드(DB 저장)는 미구현 — 전송 시 메일 클라이언트로 내용이 정리되어 열립니다(mailto 데모). 실제 저장/발송 연동은 미정.</p>
+      <p class="form-note" id="formNote">작성하신 내용은 이메일 문의 양식으로 정리됩니다. 메일 창이 열리면 내용을 확인한 뒤 발송해 주세요.</p>
     </form>
   </div>
 </section>
@@ -270,7 +270,7 @@ section{position:relative;}
     var body='이름: '+name+'\n연락처: '+phone+'\n이메일: '+email+'\n문의유형: '+type+'\n\n내용:\n'+msg;
     // 백엔드 DB 미구현 → mailto 데모(메일 클라이언트로 내용 정리)
     window.location.href='mailto:jandhgroup01@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
-    note.textContent='※ 메일 작성 창이 열립니다. (DB 저장/자동 발송 연동은 미정 — 현재 mailto 데모)';note.style.color='#666';
+    note.textContent='메일 작성 창이 열립니다. 내용을 확인한 뒤 발송해 주세요.';note.style.color='#666';
   });
 })();
 </script>
