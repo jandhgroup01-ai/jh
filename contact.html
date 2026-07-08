@@ -252,7 +252,7 @@ section{position:relative;}
   <button class="float-top" id="floatTop" aria-label="맨 위로" type="button">↑</button>
 </div>
 
-<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=a4c9afcb3965a96a9f1bd9af9afa20b5&libraries=services&autoload=false"></script>
+<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=a4c9afcb3965a96a9f1bd9af9afa20b5&libraries=services"></script>
 <script>
 (function(){
   'use strict';
@@ -270,9 +270,21 @@ section{position:relative;}
     document.querySelectorAll('.subhero .fade-up').forEach(function(el,i){setTimeout(function(){el.classList.add('in');},250+i*120);});
     loadJhKakaoMap('contactKakaoMap');
   });
-  function loadJhKakaoMap(targetId){
-    if(!window.kakao||!kakao.maps||!kakao.maps.load)return;
-    kakao.maps.load(function(){initJhKakaoMap(targetId);});
+  function loadJhKakaoMap(targetId,attempt){
+    attempt=attempt||0;
+    if(window.kakao&&kakao.maps&&kakao.maps.Map){
+      initJhKakaoMap(targetId);
+      return;
+    }
+    if(attempt<30){
+      setTimeout(function(){loadJhKakaoMap(targetId,attempt+1);},150);
+      return;
+    }
+    var el=document.getElementById(targetId);
+    if(el){
+      var state=el.querySelector('.kakao-map__fallback span');
+      if(state){state.textContent='지도 스크립트 확인 필요';}
+    }
   }
   function initJhKakaoMap(targetId){
     var el=document.getElementById(targetId);
