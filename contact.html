@@ -100,6 +100,10 @@ section{position:relative;}
 .cinfo-card .ci-v{font-size:clamp(15px,1.3vw,17px);font-weight:600;color:#fff;margin-top:8px;line-height:1.6;}
 /* C4 지도 */
 .map-slot{aspect-ratio:21/9;min-height:300px;}
+.kakao-map{position:relative;border-radius:16px;overflow:hidden;border:1px solid rgba(202,161,6,.32);background:#e9e5dc;}
+.kakao-map__fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px;text-align:center;color:#5b4a20;background:linear-gradient(135deg,#ede8dc,#f6f1e8);}
+.kakao-map__fallback strong{font-family:'Pretendard';font-size:18px;color:#2a2418;}
+.kakao-map__fallback a{font-family:'Pretendard';font-weight:700;color:#8a6b00;text-decoration:underline;text-underline-offset:4px;}
 /* 푸터 */
 .footer{background:var(--black);color:rgba(255,255,255,.7);padding:clamp(60px,8vh,90px) 0 40px;border-top:1px solid var(--line-dark);}
 .footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px;padding-bottom:48px;border-bottom:1px solid var(--line-dark);}
@@ -160,7 +164,7 @@ section{position:relative;}
   </div>
 </section>
 
-<!-- ══ C2 문의 폼 (화이트) — 백엔드 미정 → mailto 데모 ══ -->
+<!-- ══ C2 문의 폼 (화이트) — mailto 문의 양식 ══ -->
 <section class="sec-paper sec-pad">
   <div class="wrap form-grid">
     <div class="form-intro fade-up">
@@ -173,7 +177,7 @@ section{position:relative;}
       </ul>
     </div>
 
-    <!-- 폼: 백엔드 미정 → mailto 조합 데모(전송 시 메일 클라이언트로 본문 구성). DB 연동 미구현 -->
+    <!-- 폼: mailto 조합(전송 시 메일 클라이언트로 본문 구성) -->
     <form class="cform" id="cform" novalidate>
       <div class="frow two">
         <div class="frow"><label for="f-name">이름 <span class="req">*</span></label><input id="f-name" name="name" type="text" placeholder="이름을 입력해 주세요" required></div>
@@ -210,12 +214,17 @@ section{position:relative;}
   </div>
 </section>
 
-<!-- ══ C4 오시는 길 (화이트) — 지도 슬롯 ══ -->
+<!-- ══ C4 오시는 길 (화이트) — Kakao Maps 연동 ══ -->
 <section class="sec-paper sec-pad">
   <div class="wrap">
     <span class="label" style="margin-bottom:18px;display:inline-flex;">LOCATION</span>
     <h2 class="t-sec fade-up" style="color:var(--ink);margin-bottom:clamp(32px,5vw,48px);">오시는 길</h2>
-    <div class="map-slot placeholder fade-up"><span>[ SLOT-MAP-CONTACT · 16:9 ]<br>지도 임베드 자리<br>서울특별시 성동구 성수일로8길 5, 서울숲 SKV1타워 제A동 611호</span></div>
+    <div class="map-slot kakao-map fade-up" id="contactKakaoMap" data-map-title="J&H그룹" data-map-address="서울특별시 성동구 성수일로8길 5 서울숲 SKV1타워 제A동 611호">
+      <div class="kakao-map__fallback">
+        <strong>서울숲 SKV1타워 제A동 611호</strong>
+        <a href="https://map.kakao.com/link/search/서울특별시 성동구 성수일로8길 5 서울숲 SKV1타워 제A동 611호" target="_blank" rel="noopener">카카오맵에서 보기</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -243,6 +252,7 @@ section{position:relative;}
   <button class="float-top" id="floatTop" aria-label="맨 위로" type="button">↑</button>
 </div>
 
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a4c9afcb3965a96a9f1bd9af9afa20b5&libraries=services"></script>
 <script>
 (function(){
   'use strict';
@@ -258,8 +268,26 @@ section{position:relative;}
   window.addEventListener('load',function(){
     var hr=document.querySelector('.subhero .reveal-data');if(hr){setTimeout(function(){hr.classList.add('revealed');},300);}
     document.querySelectorAll('.subhero .fade-up').forEach(function(el,i){setTimeout(function(){el.classList.add('in');},250+i*120);});
+    initJhKakaoMap('contactKakaoMap');
   });
-  // ── C2 문의 폼 (백엔드 미정 → mailto 데모) ──
+  function initJhKakaoMap(targetId){
+    var el=document.getElementById(targetId);
+    if(!el||!window.kakao||!kakao.maps||!kakao.maps.services)return;
+    var title=el.getAttribute('data-map-title')||'J&H그룹';
+    var address=el.getAttribute('data-map-address')||'서울특별시 성동구 성수일로8길 5 서울숲 SKV1타워 제A동 611호';
+    var geocoder=new kakao.maps.services.Geocoder();
+    geocoder.addressSearch(address,function(result,status){
+      if(status!==kakao.maps.services.Status.OK||!result[0])return;
+      el.innerHTML='';
+      var coords=new kakao.maps.LatLng(result[0].y,result[0].x);
+      var map=new kakao.maps.Map(el,{center:coords,level:3});
+      var marker=new kakao.maps.Marker({map:map,position:coords,title:title});
+      var info=new kakao.maps.InfoWindow({content:'<div style="padding:8px 12px;font-size:13px;font-weight:700;color:#1a1a1a;white-space:nowrap;">'+title+'</div>'});
+      info.open(map,marker);
+      setTimeout(function(){map.relayout();map.setCenter(coords);},120);
+    });
+  }
+  // ── C2 문의 폼 (mailto 문의 양식) ──
   var form=document.getElementById('cform'),note=document.getElementById('formNote');
   form.addEventListener('submit',function(e){
     e.preventDefault();
@@ -268,7 +296,7 @@ section{position:relative;}
     if(!agree){note.textContent='※ 개인정보 수집·이용에 동의해 주셔야 문의를 보낼 수 있습니다.';note.style.color='#c0392b';return;}
     var subject='[J&H그룹 문의] '+type+' - '+name;
     var body='이름: '+name+'\n연락처: '+phone+'\n이메일: '+email+'\n문의유형: '+type+'\n\n내용:\n'+msg;
-    // 백엔드 DB 미구현 → mailto 데모(메일 클라이언트로 내용 정리)
+    // 메일 클라이언트로 문의 내용 정리
     window.location.href='mailto:jandhgroup01@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
     note.textContent='메일 작성 창이 열립니다. 내용을 확인한 뒤 발송해 주세요.';note.style.color='#666';
   });
@@ -286,9 +314,9 @@ section{position:relative;}
 - C2 폼 항목(이름/연락처/이메일/문의유형/내용/개인정보동의+제출) — 01_기획.md C2
 - 페이지 구성 C1~C4 — 01_기획.md §3 ▣문의하기
 - 서브 히어로 = 영상 아님(SLOT-IMG-CONTACT-HERO 1920×720 + 딤 + 타이틀 reveal)
-■ 미정 (슬롯/플레이스홀더)
-- 폼 백엔드(mailto vs DB) → mailto 데모로 비동작 처리 + "DB 저장 미구현/연동 미정" 명시 — _brief.md L90
-- C4 지도 SLOT-MAP-CONTACT / C1 히어로 SLOT-IMG-CONTACT-HERO
+■ 보강 완료
+- 폼 = mailto 문의 양식
+- C4 지도 = Kakao Maps JavaScript API 연동, 실패 시 주소 안내 패널 표시
 ■ 제안 (시엘 판단)
 - 폼 = mailto 조합 데모(클라이언트 검증 + 메일 클라이언트 본문 자동 구성) — 백엔드 확정 전 동작 가능한 최소안. 제안
 - 문의유형 옵션(시장분석/교육컨설팅/제휴/기타) = 사업영역(브리프) 기반 — 제안

@@ -162,6 +162,10 @@ section{position:relative;}
 /* A6 오시는 길 */
 .map-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(32px,5vw,56px);align-items:stretch;}
 .map-slot{aspect-ratio:16/9;min-height:280px;}
+.kakao-map{position:relative;border-radius:16px;overflow:hidden;border:1px solid rgba(202,161,6,.32);background:#e9e5dc;}
+.kakao-map__fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px;text-align:center;color:#5b4a20;background:linear-gradient(135deg,#ede8dc,#f6f1e8);}
+.kakao-map__fallback strong{font-family:'Pretendard';font-size:18px;color:#2a2418;}
+.kakao-map__fallback a{font-family:'Pretendard';font-weight:700;color:#8a6b00;text-decoration:underline;text-underline-offset:4px;}
 .addr-card{padding:clamp(28px,3vw,40px);border-radius:16px;background:rgba(255,255,255,.6);border:1px solid var(--line-light);}
 .sec-paper .addr-card .k{color:var(--gold-soft);font-family:'Pretendard';font-weight:700;font-size:12px;letter-spacing:.06em;display:block;margin-bottom:6px;}
 .addr-card .v{font-size:16px;color:var(--ink);line-height:1.7;margin-bottom:22px;}
@@ -339,7 +343,12 @@ section{position:relative;}
     <span class="label" style="margin-bottom:18px;display:inline-flex;">LOCATION</span>
     <h2 class="t-sec fade-up" style="color:var(--ink);margin-bottom:clamp(40px,6vw,56px);">오시는 길</h2>
     <div class="map-grid">
-      <div class="map-slot placeholder fade-up"><span>서울숲 SKV1타워<br>제A동 611호</span></div>
+      <div class="map-slot kakao-map fade-up" id="aboutKakaoMap" data-map-title="J&H그룹" data-map-address="서울특별시 성동구 성수일로8길 5 서울숲 SKV1타워 제A동 611호">
+        <div class="kakao-map__fallback">
+          <strong>서울숲 SKV1타워 제A동 611호</strong>
+          <a href="https://map.kakao.com/link/search/서울특별시 성동구 성수일로8길 5 서울숲 SKV1타워 제A동 611호" target="_blank" rel="noopener">카카오맵에서 보기</a>
+        </div>
+      </div>
       <div class="addr-card fade-up">
         <!-- 주소·연락처: _brief.md 확정값 -->
         <div><span class="k">ADDRESS</span><p class="v">서울특별시 성동구 성수일로8길 5,<br>서울숲 SKV1타워 제A동 611호</p></div>
@@ -401,6 +410,7 @@ section{position:relative;}
   <button class="float-top" id="floatTop" aria-label="맨 위로" type="button">↑</button>
 </div>
 
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a4c9afcb3965a96a9f1bd9af9afa20b5&libraries=services"></script>
 <script>
 (function(){
   'use strict';
@@ -417,7 +427,25 @@ section{position:relative;}
   window.addEventListener('load',function(){
     var hr=document.querySelector('.subhero .reveal-data');if(hr){setTimeout(function(){hr.classList.add('revealed');},300);}
     document.querySelectorAll('.subhero .fade-up').forEach(function(el,i){setTimeout(function(){el.classList.add('in');},250+i*120);});
+    initJhKakaoMap('aboutKakaoMap');
   });
+  function initJhKakaoMap(targetId){
+    var el=document.getElementById(targetId);
+    if(!el||!window.kakao||!kakao.maps||!kakao.maps.services)return;
+    var title=el.getAttribute('data-map-title')||'J&H그룹';
+    var address=el.getAttribute('data-map-address')||'서울특별시 성동구 성수일로8길 5 서울숲 SKV1타워 제A동 611호';
+    var geocoder=new kakao.maps.services.Geocoder();
+    geocoder.addressSearch(address,function(result,status){
+      if(status!==kakao.maps.services.Status.OK||!result[0])return;
+      el.innerHTML='';
+      var coords=new kakao.maps.LatLng(result[0].y,result[0].x);
+      var map=new kakao.maps.Map(el,{center:coords,level:3});
+      var marker=new kakao.maps.Marker({map:map,position:coords,title:title});
+      var info=new kakao.maps.InfoWindow({content:'<div style="padding:8px 12px;font-size:13px;font-weight:700;color:#1a1a1a;white-space:nowrap;">'+title+'</div>'});
+      info.open(map,marker);
+      setTimeout(function(){map.relayout();map.setCenter(coords);},120);
+    });
+  }
 })();
 </script>
 
@@ -436,7 +464,7 @@ section{position:relative;}
 - 페이지 구성 A1~A6 — 01_기획.md §3 ▣회사소개
 - 서브 히어로 = about_hero.png 배경 + 딤 + 타이틀 reveal
 ■ 보강 완료
-- A6 지도 영역 = 실제 지도 연동 전까지 주소 안내 패널로 표시
+- A6 지도 영역 = Kakao Maps JavaScript API 연동, 실패 시 주소 안내 패널 표시
 - A5 연혁 2024~2025 세부 → 브리프의 사업영역 범위 안에서 일반 운영 흐름으로 정리(구체 실적·날짜 단정 없음)
 - A4 핵심가치 = 텍스트 카드 중심 구성
 ■ 제안 (시엘 판단)
