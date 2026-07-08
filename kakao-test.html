@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kakao Map Test</title>
+<style>
+  body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f5f5f5;color:#111;}
+  main{max-width:960px;margin:0 auto;padding:40px 20px;}
+  h1{font-size:28px;margin:0 0 10px;}
+  p{line-height:1.7;color:#555;}
+  #map{width:100%;height:520px;border:1px solid #ddd;background:#eee;}
+  #status{margin-top:14px;padding:14px 16px;border:1px solid #ddd;background:#fff;white-space:pre-wrap;font-size:14px;line-height:1.6;}
+</style>
+</head>
+<body>
+<main>
+  <h1>카카오맵 단독 테스트</h1>
+  <p>이 페이지는 다른 사이트 스크립트 없이 카카오 공식 샘플 방식만 사용합니다.</p>
+  <div id="map"></div>
+  <div id="status">지도 초기화 대기 중</div>
+</main>
+
+<script>
+  window.onerror=function(message,source,lineno,colno,error){
+    var status=document.getElementById('status');
+    status.textContent='브라우저 오류\n'+message+'\n'+source+':'+lineno+':'+colno;
+    if(error&&error.stack){status.textContent+='\n'+error.stack;}
+  };
+</script>
+<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=a4c9afcb3965a96a9f1bd9af9afa20b5"></script>
+<script>
+  (function(){
+    var status=document.getElementById('status');
+    var container=document.getElementById('map');
+    status.textContent='SDK 로드 확인 중';
+
+    if(!window.kakao){
+      status.textContent='window.kakao 없음: SDK 스크립트 로드 실패 또는 앱키/도메인 차단';
+      return;
+    }
+    if(!kakao.maps||!kakao.maps.Map){
+      status.textContent='kakao.maps.Map 없음: JavaScript 키 또는 웹 도메인 등록 확인 필요';
+      return;
+    }
+
+    var position=new kakao.maps.LatLng(37.54639,127.05102);
+    var options={
+      center:position,
+      level:3
+    };
+    var map=new kakao.maps.Map(container,options);
+    var marker=new kakao.maps.Marker({
+      position:position,
+      map:map,
+      title:'J&H그룹'
+    });
+    var infowindow=new kakao.maps.InfoWindow({
+      content:'<div style="padding:8px 12px;font-size:13px;font-weight:700;white-space:nowrap;">J&H그룹</div>'
+    });
+    infowindow.open(map,marker);
+    status.textContent='지도 생성 성공\norigin: '+location.origin+'\n등록해야 하는 웹 도메인: '+location.origin;
+  })();
+</script>
+</body>
+</html>
