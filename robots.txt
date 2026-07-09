@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /kakao-test.html
+
+Sitemap: https://www.jandhgroup.co.kr/sitemap.xml
